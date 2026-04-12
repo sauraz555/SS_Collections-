@@ -328,6 +328,74 @@
     margin-top: 12px; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
   }
   .copy-btn:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* WAR ROOM CSS */
+/* Profile cards */
+  .enemy-card{background:#1A1A2E;border:1px solid #C0392B55;border-radius:10px;padding:16px;margin-bottom:14px;}
+  .enemy-card .ename{font-size:15px;font-weight:700;color:#E74C3C;}
+  .enemy-card .estat{font-size:12px;color:#7A90A8;margin:4px 0 10px;}
+  /* Copy boxes */
+  .copybox{background:#0A1220;border:1px solid #1E4070;border-radius:7px;padding:14px;margin-bottom:12px;font-size:12.5px;line-height:1.7;color:#C8D8E8;position:relative;}
+  .copybox .clabel{color:var(--gold);font-size:10px;font-weight:700;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
+  .copybox pre{white-space:pre-wrap;font-family:inherit;color:#D8E8F0;}
+  .copy-btn{background:var(--mid);color:white;border:none;padding:5px 12px;border-radius:5px;font-size:11px;cursor:pointer;margin-top:8px;transition:background .15s;}
+  .copy-btn:hover{background:var(--navy);}.copy-btn.ok{background:var(--green);}
+  /* Influencer grid */
+  .inf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+  .inf-card{background:#0A1A2E;border:1px solid #1E3352;border-radius:8px;padding:13px;}
+  .inf-card .handle{font-size:13px;font-weight:700;color:#79B8E8;}
+  .inf-card .istat{font-size:11px;color:#7A90A8;margin:3px 0;}
+  .inf-card .itag{font-size:11px;}
+  /* Hashtag grid */
+  .ht-grid{display:flex;flex-wrap:wrap;gap:8px;}
+  .ht{background:#0A1A2E;border:1px solid #1E3352;border-radius:14px;padding:5px 12px;font-size:12px;cursor:pointer;transition:all .14s;color:#9DB8D4;}
+  .ht:hover,.ht.copied{background:var(--mid);color:white;border-color:var(--mid);}
+  .ht.nepali{border-color:#E8A02044;color:var(--gold);}
+  /* Stat pills */
+  .statrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .statpill{background:#0A1A2E;border:1px solid #1E3352;border-radius:7px;padding:10px 14px;text-align:center;}
+  .statpill .sv{font-size:22px;font-weight:700;color:white;}
+  .statpill .sl{font-size:11px;color:#7A90A8;margin-top:2px;}
+  /* Progress */
+  .pbr{height:6px;background:#1E3352;border-radius:3px;margin-top:5px;}
+  .pbf{height:100%;border-radius:3px;background:var(--mid);}
+  /* Timeline */
+  .tl{position:relative;padding-left:24px;}
+  .tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:#1E3352;}
+  .tl-item{position:relative;margin-bottom:16px;}
+  .tl-dot{position:absolute;left:-21px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--mid);border:2px solid #162334;box-shadow:0 0 0 2px var(--mid);}
+  .tl-dot.gold{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+  .tl-dot.red{background:var(--red);box-shadow:0 0 0 2px var(--red);}
+  .tl-dot.green{background:var(--green);box-shadow:0 0 0 2px var(--green);}
+  .tl-t{font-size:13px;font-weight:600;color:#D8E8F0;margin-bottom:3px;}
+  .tl-d{font-size:12px;color:#7A90A8;line-height:1.5;}
+  /* Video hook cards */
+  .hook-card{background:#0A1220;border:1px solid #1E3352;border-radius:8px;padding:15px;margin-bottom:12px;}
+  .hook-card .htitle{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px;}
+  .hook-card .hscript{font-size:12.5px;color:#C8D8E8;line-height:1.7;}
+  .hook-card .hphone{font-size:12px;color:#7A90A8;margin-top:8px;font-style:italic;}
+  /* Big reveal box */
+  .reveal{background:rgba(192,57,43,.08);border:2px solid var(--red);border-radius:10px;padding:20px;margin-bottom:20px;}
+  .reveal h2{font-size:16px;font-weight:700;color:var(--red);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+  .reveal p{font-size:13px;color:#C8D8E8;line-height:1.7;}
+  /* Gap opportunity box */
+  .gap-box{background:rgba(39,174,96,.08);border:2px solid var(--green);border-radius:10px;padding:18px;margin-bottom:16px;}
+  .gap-box h4{color:var(--green);font-size:13px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px;}
+  .gap-box p{font-size:12.5px;color:#B8D8C8;line-height:1.65;}
+  /* Ad sets */
+  .adset{background:#0F1E30;border:1px solid #1E3A5A;border-radius:8px;padding:15px;margin-bottom:14px;}
+  .adset .astitle{color:#79B8E8;font-size:12px;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+  .adset .afield{margin-bottom:8px;}
+  .adset .aflabel{font-size:10px;color:#5A7A9A;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .adset .afval{font-size:13px;color:#D8E8F0;background:#0A1420;padding:7px 10px;border-radius:5px;line-height:1.5;}
+  .adset .afval.nepali{font-size:13.5px;color:var(--gold);}
+  @media(max-width:900px){.g2,.g3{grid-template-columns:1fr;}.cmdbar .tabs{display:none;}.section{padding:16px;}}
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+  th { background: rgba(0,0,0,0.2); color: var(--text-secondary); padding: 10px; text-align: left; }
+  td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: var(--bg-card-hover); }
+
 </style>
 </head>
 <body>
@@ -348,6 +416,17 @@
       <div class="nav-item" onclick="nav('whatsapp', this)">💬 WA Sales System</div>
       <div class="nav-item" onclick="nav('ads', this)">🎯 FB Ads Blueprint</div>
       <div class="nav-item" onclick="nav('content', this)">✍️ Content & Calendar</div>
+
+    <div class="nav-group">
+      <div class="nav-label">Intelligence War Room</div>
+      <div class="nav-item" onclick="nav('enemy', this)">🎯 Enemy Intel</div>
+      <div class="nav-item" onclick="nav('market', this)">📊 Market Intel</div>
+      <div class="nav-item" onclick="nav('adcopies', this)">📢 Ad Arsenal</div>
+      <div class="nav-item" onclick="nav('influencers', this)">🤝 Influencers</div>
+      <div class="nav-item" onclick="nav('hashtags', this)"># Hashtags</div>
+      <div class="nav-item" onclick="nav('hooks', this)">🎬 Video Hooks</div>
+      <div class="nav-item" onclick="nav('battleplan', this)">⚔️ Battle Plan</div>
+    </div>
     </div>
   </div>
 </div>
@@ -653,6 +732,683 @@ Shubha Dashain! 🙏
 
 </div>
 
+
+<!-- ══════════════════════════ ENEMY INTEL ══════════════════════════ -->
+<div id="enemy" class="section">
+  <div class="reveal">
+    <h2>🚨 CRITICAL INTELLIGENCE: You Are Fighting ONE Enemy, Not Three</h2>
+    <p>Grok confirmed: <strong>The Watch Lounge, NaviForce Nepal, and SKMEI Nepal are the SAME operation</strong> — same WhatsApp number (982-3488515), same physical showroom in Kumaripati/Pulchowk Lalitpur, same policies, same team. They use three branded faces to appear larger and "authorized." Their strategy: Watch Lounge = umbrella brand for trust + variety; NaviForce + SKMEI = brand-specific pages to fight fake-watch perception. Combined ~133,000 followers across 3 pages from one business in Lalitpur. <strong>This is your entire primary competition. One shop, 20+ minutes from Bhaktapur. You have local speed advantage they cannot touch.</strong></p>
+  </div>
+
+  <div class="g3">
+    <div class="enemy-card">
+      <div class="ename">🏴 The Watch Lounge</div>
+      <div class="estat">~68,000 likes · 4–7 posts/week · thewatchlounge.co</div>
+      <div class="panel h4" style="border:none;background:none;padding:0;margin:0;">
+        <h4 style="color:#9DB8D4;font-size:12px;margin:0 0 6px;">What They Do Right</h4>
+      </div>
+      <ul style="font-size:12px;color:#9DB8D4;padding-left:16px;line-height:1.9;">
+        <li>Short Reels: "Top 6 watches under Rs 1,500"</li>
+        <li>1-year warranty + 7-day exchange + free delivery — EVERY post</li>
+        <li>WhatsApp pinned everywhere, replied to fast</li>
+        <li>Claims 5,000–6,000+ models — breadth wins trust</li>
+        <li>Physical Lalitpur showroom = trust closer for big buyers</li>
+      </ul>
+      <h4 style="color:#E74C3C;font-size:12px;margin:10px 0 5px;">Their Weakness</h4>
+      <p style="font-size:12px;color:#7A90A8;">Broad coverage means <em>no hyper-specialization</em> in Rs 500–1,200 designer-fashion niche. Content is professional but generic — not locally personal to Bhaktapur community.</p>
+    </div>
+    <div class="enemy-card">
+      <div class="ename">🏴 NaviForce Nepal</div>
+      <div class="estat">~52,000 likes · 3–5 posts/week · naviforce-watch.com</div>
+      <ul style="font-size:12px;color:#9DB8D4;padding-left:16px;line-height:1.9;">
+        <li>Lifestyle storytelling: "Your daily armor"</li>
+        <li>On-wrist demos, 4–8 colour options shown per video</li>
+        <li>UGC: "Tag us wearing your NaviForce"</li>
+        <li>Rs 1,850–2,650 range — above your sweet spot</li>
+        <li>"Beware of fakes" = strong authorized positioning</li>
+      </ul>
+      <h4 style="color:#E74C3C;font-size:12px;margin:10px 0 5px;">Their Weakness</h4>
+      <p style="font-size:12px;color:#7A90A8;">Locked to ONE brand (NaviForce). Zero flexibility for budget buyers under Rs 1,500. Their "anti-fake" messaging actually <em>signals</em> the category has a fake problem — you can exploit by being 100% transparent.</p>
+    </div>
+    <div class="enemy-card">
+      <div class="ename">🏴 SKMEI Nepal</div>
+      <div class="estat">~13,000 likes · near-daily posts · skmeinepal.com</div>
+      <ul style="font-size:12px;color:#9DB8D4;padding-left:16px;line-height:1.9;">
+        <li>Most aggressive pricing: "Market Rs 3,500 → Ours Rs 2,449"</li>
+        <li>Heavy feature focus: oversized, dual-time, automatic</li>
+        <li>Before/after price posts drive highest reactions (4.2K in one post)</li>
+        <li>Near-daily urgency: "Stock clearance", "Special offer"</li>
+      </ul>
+      <h4 style="color:#E74C3C;font-size:12px;margin:10px 0 5px;">Their Weakness</h4>
+      <p style="font-size:12px;color:#7A90A8;">SKMEI sits Rs 2,449–3,499 — <em>above</em> your price range. Content is transactional, not emotional. Zero couple/gift content. Zero ladies bangle focus. You can steal their audience in your price band.</p>
+    </div>
+  </div>
+
+  <div class="panel gold">
+    <h3>🏆 Their Winning Formula (Copy It Immediately)</h3>
+    <div class="g2">
+      <div>
+        <p style="font-size:13px;color:#C8D8E8;margin-bottom:12px;">Every single post from all three pages repeats this EXACT trust package. You must match it word for word on every SS Collection post:</p>
+        <div class="copybox">
+          <div class="clabel">Trust Package — Add to EVERY Post</div>
+          <pre>✅ 1 Year Warranty on Movement
+✅ 7 Day Easy Exchange
+✅ Free Delivery (Prepaid Orders All Nepal)
+✅ Cash on Delivery Available
+✅ WhatsApp: [YOUR NUMBER]</pre>
+          <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+        </div>
+      </div>
+      <div>
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-t">Step 1 — Video/Reel (on-wrist, ticking, price reveal)</div><div class="tl-d">This is what makes The Watch Lounge's posts get shared. Not product photos.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 2 — Price shown upfront ("Under Rs X" or "Rs 999 only")</div><div class="tl-d">Never hide the price. They never do. Buyers who see price and stay = qualified.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 3 — Trust package every single post</div><div class="tl-d">Warranty + exchange + free delivery. Repeated until it becomes brand DNA.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 4 — WhatsApp number pinned everywhere</div><div class="tl-d">Bio, every post, every Story, every video end screen. 982-3488515 is their #1 asset.</div></div>
+          <div class="tl-item"><div class="tl-dot green"></div><div class="tl-t">Step 5 — Reply fast on WhatsApp, COD all Nepal</div><div class="tl-d">COD removes all purchase risk. This is why they convert even skeptical buyers.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel green">
+    <h3>✅ Your 5 Competitive Advantages They CANNOT Match</h3>
+    <div class="g2">
+      <div>
+        <div class="gap-box">
+          <h4>🏙️ Gap 1 — Rs 500–1,200 Fashion-Designer Niche (Unclaimed)</h4>
+          <p>All top competitors sit at Rs 1,500–3,500. Your Miracle / Omega-design / Rado-design segment (Rs 500–1,200) has NO dominant professional player. Tiny amateur pages hold this space with bad photos. You can OWN it with professional Reels and consistent posting.</p>
+        </div>
+        <div class="gap-box">
+          <h4>🚀 Gap 2 — Bhaktapur Speed Advantage</h4>
+          <p>The Watch Lounge ships from Lalitpur. You are in Bhaktapur — same-day delivery to the entire valley. Market it aggressively: "Order before 2 PM — delivered today in Kathmandu Valley." They literally cannot say this.</p>
+        </div>
+        <div class="gap-box">
+          <h4>💎 Gap 3 — Ladies Bangle Collection (Nobody Owns It)</h4>
+          <p>You have 9 Orvin Bangle variants + 6 MK Bangle variants + Miracle/Rolex bangles. That's 20+ bangle watches. No competitor has curated this. Launch "SS Collection Bangle Watch Collection" — Nepal's most complete bangle watch range.</p>
+        </div>
+      </div>
+      <div>
+        <div class="gap-box">
+          <h4>💑 Gap 4 — Couple/Gift Sets at Rs 2,000–4,000</h4>
+          <p>Competitors ignore this segment entirely. Your Omega couple boxes, Miracle sets, and gift-packaged pairs hit the perfect festival gift price point. No one is doing "his + hers" gifting content in this price range with consistency.</p>
+        </div>
+        <div class="gap-box">
+          <h4>🎓 Gap 5 — Student/Youth Digital Watch Dominance</h4>
+          <p>Your 10 Lasika variants + 9 ITAI variants = 19 digital/sport SKUs from Rs 300–700. No competitor is targeting students with a "20 digital watch options under Rs 700" angle. This drives volume and word-of-mouth in schools and colleges.</p>
+        </div>
+        <div class="alert ok"><strong>🎯 Core Positioning:</strong> "Bhaktapur's fastest watch delivery. Nepal's widest designer fashion watch collection. Rs 500–2,600. Cash on delivery. 1-year warranty."</div>
+      </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Intelligence War Room</div>
+      <div class="nav-item" onclick="nav('enemy', this)">🎯 Enemy Intel</div>
+      <div class="nav-item" onclick="nav('market', this)">📊 Market Intel</div>
+      <div class="nav-item" onclick="nav('adcopies', this)">📢 Ad Arsenal</div>
+      <div class="nav-item" onclick="nav('influencers', this)">🤝 Influencers</div>
+      <div class="nav-item" onclick="nav('hashtags', this)"># Hashtags</div>
+      <div class="nav-item" onclick="nav('hooks', this)">🎬 Video Hooks</div>
+      <div class="nav-item" onclick="nav('battleplan', this)">⚔️ Battle Plan</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MARKET INTEL ══════════════════════════ -->
+<div id="market" class="section">
+  <div class="statrow">
+    <div class="statpill"><div class="sv">14–17M</div><div class="sl">Facebook users in Nepal</div></div>
+    <div class="statpill"><div class="sv">91.7%</div><div class="sl">Facebook market share</div></div>
+    <div class="statpill"><div class="sv">7–9 PM</div><div class="sl">Peak activity time</div></div>
+    <div class="statpill"><div class="sv">Fri–Sun</div><div class="sl">Highest engagement days</div></div>
+    <div class="statpill"><div class="sv">Rs 800–1,500</div><div class="sl">Sweet spot price band</div></div>
+    <div class="statpill"><div class="sv">40–70%</div><div class="sl">Sales uplift at Dashain/Tihar</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="panel blue">
+      <h3>📈 Trending Styles — Nepal 2025–2026</h3>
+      <h4>Gents (Your best-selling potential)</h4>
+      <ul style="font-size:12.5px;color:#C8D8E8;padding-left:16px;line-height:1.9;">
+        <li><strong>Military/tactical chronograph</strong> — Black or silver dial, multi-dial, compass — Nepal's #1 viral watch style right now</li>
+        <li><strong>Diver/submarine style</strong> — Bold bezel, date window, stainless steel — aspirational but affordable</li>
+        <li><strong>Minimalist black-dial</strong> — Leather strap, clean — strong office professional appeal</li>
+        <li><strong>Two-tone gold/silver</strong> — Day-date display — gift buyers love this</li>
+      </ul>
+      <h4>Ladies (Your biggest growth opportunity)</h4>
+      <ul style="font-size:12.5px;color:#C8D8E8;padding-left:16px;line-height:1.9;">
+        <li><strong>Bangle/bracelet-integrated</strong> — THE breakout 2025 global trend. Sculptural jewellery-meets-watch. <span class="tag green">Your 20+ bangle SKUs = perfect</span></li>
+        <li><strong>Rose gold dial</strong> — Small oval face, gem-accented, chain strap</li>
+        <li><strong>Colour dial ladies</strong> — Blue, green, red dials on SS bracelet — very Instagrammable</li>
+        <li><strong>Stone-set bezel</strong> — Crystal/rhinestone border — ladies gift buyers respond strongly</li>
+      </ul>
+      <h4>Digital/Sport</h4>
+      <ul style="font-size:12.5px;color:#C8D8E8;padding-left:16px;line-height:1.9;">
+        <li><strong>G-Shock-style rugged digital</strong> — Skmei/Lasika silhouette — students, outdoor youth</li>
+        <li><strong>Hybrid analog-digital</strong> — Compass, backlight, dual time — <span class="tag gold">Longbo Watches in your stock!</span></li>
+        <li><strong>LED sport</strong> — Budget Rs 300–700, mass volume driver</li>
+      </ul>
+    </div>
+
+    <div class="panel blue">
+      <h3>🔍 Top Search Terms — Google Nepal (Buy Intent)</h3>
+      <table>
+        <tr><th>Search Term</th><th>Intent Level</th><th>Action for SS</th></tr>
+        <tr><td>watch price in nepal</td><td><span class="tag green">🔥 High Buy</span></td><td>Use in every post caption + Facebook Shop titles</td></tr>
+        <tr><td>mens watch price in nepal</td><td><span class="tag green">🔥 High Buy</span></td><td>Use in gents product descriptions</td></tr>
+        <tr><td>couple watch price nepal</td><td><span class="tag green">🔥 High Buy</span></td><td>Own this — no strong competitor here</td></tr>
+        <tr><td>ladies watch price in nepal</td><td><span class="tag green">🔥 High Buy</span></td><td>Bangle collection focus</td></tr>
+        <tr><td>watch under 2000 nepal</td><td><span class="tag green">🔥 High Buy</span></td><td>Create "under Rs 2,000" content series</td></tr>
+        <tr><td>bangle watch women nepal</td><td><span class="tag gold">⭐ High Buy</span></td><td>You have 20+ bangles — OWN this term</td></tr>
+        <tr><td>digital sport watch nepal</td><td><span class="tag gold">⭐ High Buy</span></td><td>19 digital SKUs — target students</td></tr>
+        <tr><td>best mens watch nepal 2026</td><td><span class="tag blue">Medium</span></td><td>Create "Best Of" guide content</td></tr>
+        <tr><td>automatic watch nepal</td><td><span class="tag blue">Medium</span></td><td>Use for Swish Heavy and Crono Chain</td></tr>
+        <tr><td>trending watch nepal</td><td><span class="tag gray">Window shopping</span></td><td>Use for awareness Reels content</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel gold">
+    <h3>💰 Nepal Price Psychology — Critical Rules</h3>
+    <div class="g3">
+      <div class="copybox" style="margin-bottom:0;">
+        <div class="clabel">Always Use Odd Pricing</div>
+        <pre>❌ Rs 900  →  ✅ Rs 899
+❌ Rs 1,000 → ✅ Rs 999
+❌ Rs 1,500 → ✅ Rs 1,499
+❌ Rs 2,000 → ✅ Rs 1,999
+❌ Rs 2,600 → ✅ Rs 2,599</pre>
+      </div>
+      <div class="copybox" style="margin-bottom:0;">
+        <div class="clabel">Framings That Kill Price Objections</div>
+        <pre>✅ "Direct import — no middleman"
+✅ "Direct factory price"
+✅ "Premium build, Nepal price"
+✅ "Bazarma Rs 4,000 → Hamro Rs 1,499"
+✅ "1 year warranty included"
+✅ "Cash on delivery — try first"</pre>
+      </div>
+      <div class="copybox" style="margin-bottom:0;">
+        <div class="clabel">Words That Never Work in Nepal</div>
+        <pre>❌ "Cheap" (implies poor quality)
+❌ "Low quality" angle
+❌ "Replica" or "Copy"
+❌ Hide price ("DM for price")
+❌ "Limited time" without real deadline
+❌ English-only posts to local audience</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🗓️ Festival Calendar — Exact Ad Launch Windows</h3>
+    <table>
+      <tr><th>Festival</th><th>Gregorian Dates</th><th>Ad Launch Window</th><th>Sales Uplift</th><th>Your Best Products</th></tr>
+      <tr style="background:rgba(232,160,32,.06)"><td><strong>Dashain 2026</strong></td><td>Oct 2–12, 2026</td><td><span class="tag gold">Start Sep 12</span> (3 weeks before)</td><td><span class="tag green">40–70% uplift</span></td><td>Miracle M01/M02, Swish Gents, Rolex Heavy Chain, Citizen, Couple Sets</td></tr>
+      <tr style="background:rgba(232,160,32,.06)"><td><strong>Tihar 2026</strong></td><td>Oct 28–Nov 1, 2026</td><td><span class="tag gold">Start Oct 15</span></td><td><span class="tag green">30–50% uplift</span></td><td>Bhai Tika gifting — gents chain watches, Binbond DD, gift sets</td></tr>
+      <tr><td><strong>Valentine's Day 2027</strong></td><td>Feb 14, 2027</td><td><span class="tag blue">Start Feb 1</span></td><td><span class="tag blue">25–40% uplift</span></td><td>Couple sets (Omega box), Miracle Box Bag Set, Orvin Bangle sets</td></tr>
+      <tr><td><strong>Nepali New Year 2083</strong></td><td>Apr 14, 2027</td><td><span class="tag blue">Start Apr 1</span></td><td><span class="tag blue">15–25%</span></td><td>"Naya barsa naya ghadi" — all categories</td></tr>
+      <tr><td><strong>Mother's Day</strong></td><td>May 2027</td><td>Start 10 days before</td><td><span class="tag gray">15–20%</span></td><td>Orvin Bangle (9 variants), MK Bangle, Ladies Open Bangle, Rolex Bangle</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════ AD ARSENAL ══════════════════════════ -->
+<div id="adcopies" class="section">
+  <div class="alert warn"><strong>⚡ These are ready to use RIGHT NOW.</strong> All 5 ad copy sets confirmed by Grok as high-converting patterns from active Nepal watch pages. Set up "MESSAGES → WhatsApp" objective. Replace [YOUR NUMBER] before launching.</div>
+
+  <div class="alert info"><strong>🔧 Exact Campaign Setup (confirmed by Grok):</strong><br>
+  Campaign A (Ladies Bangles): Women, 18–35, Nepal, Interests: Fashion accessories + Jewellery + Online shopping + Beauty. Budget: Rs 650–1,000/day<br>
+  Campaign B (Gents Premium): Men, 25–45, Nepal, Interests: Watches + Men's fashion + Online shopping + Luxury goods. Budget: Rs 750–1,300/day<br>
+  Campaign C (Couple/Gift): All, 18–55, Nepal, Interests: Online shopping + Gift ideas + Anniversary + Family. Budget: Rs 650–1,000/day<br>
+  <strong>Also install Meta Pixel + Conversions API immediately — track Purchase, ATC, ViewContent events.</strong></div>
+
+  <div class="adset">
+    <div class="astitle">📢 Set 1 — Ladies Bangle Watch (Sparkle Focus) — Campaign A</div>
+    <div class="g2">
+      <div>
+        <div class="afield"><div class="aflabel">Primary Text (Nepali — under 125 chars)</div><div class="afval nepali">SS Collection को बंगल घडीले तपाईंको हात चम्काउँछ! Rs ९९९ देखि मात्र। स्टाइलिश + COD नेपालभर।</div></div>
+        <div class="afield"><div class="aflabel">Headline (under 40 chars)</div><div class="afval">बंगल घडी प्रेमीहरूका लागि!</div></div>
+        <div class="afield"><div class="aflabel">Description (under 30 chars)</div><div class="afval">Rs ९९९ मात्र</div></div>
+      </div>
+      <div>
+        <div class="afield"><div class="aflabel">Video to Film (15 sec, phone)</div><div class="afval">Close-up young Nepali woman's wrist with bangle watch sparkling in sunlight. Modern kurta or casual top. Soft smile. Clean light background. Slow rotation to show all angles.</div></div>
+        <div class="afield"><div class="aflabel">Why It Converts</div><div class="afval">Visual sparkle of bangle watch triggers instant impulse desire. "हात चम्काउँछ" (makes your hand shine) is an emotional trigger specific to Nepali/South Asian women buyers.</div></div>
+        <button class="cbtn" onclick="cpAdSet(this)">📋 Copy All Ad Text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="adset">
+    <div class="astitle">📢 Set 2 — Gents Premium Watch (Luxury Feel) — Campaign B</div>
+    <div class="g2">
+      <div>
+        <div class="afield"><div class="aflabel">Primary Text (Nepali)</div><div class="afval nepali">प्रिमियम गेन्ट्स वाच SS Collection मा! Rs १,४९९ देखि। लक्जरी फील किफायती मूल्यमा। COD उपलब्ध।</div></div>
+        <div class="afield"><div class="aflabel">Headline</div><div class="afval">मेन प्रिमियम वाच</div></div>
+        <div class="afield"><div class="aflabel">Description</div><div class="afval">गुणस्तरीय स्टाइल</div></div>
+      </div>
+      <div>
+        <div class="afield"><div class="aflabel">Video to Film</div><div class="afval">Man in formal shirt or neat casual, checking watch on wrist. Kathmandu office or outdoor background. Confident pose. Add text: "Rs 1,499 — Direct Import."</div></div>
+        <div class="afield"><div class="aflabel">Why It Converts</div><div class="afval">"किफायती मूल्यमा" (at affordable price) + "लक्जरी फील" (luxury feel) is the exact positioning that works for Nepal's aspirational middle-class buyer — they want luxury but can't spend Rs 10,000+.</div></div>
+        <button class="cbtn" onclick="cpAdSet(this)">📋 Copy All Ad Text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="adset">
+    <div class="astitle">📢 Set 3 — Couple/Gift Set (Romance Focus) — Campaign C</div>
+    <div class="g2">
+      <div>
+        <div class="afield"><div class="aflabel">Primary Text (Nepali)</div><div class="afval nepali">कपलको लागि परफेक्ट गिफ्ट सेट! SS Collection जोडी घडीहरू Rs १,९९९ देखि। प्रेम प्रदर्शन गर्नुहोस्। COD नेपालभर।</div></div>
+        <div class="afield"><div class="aflabel">Headline</div><div class="afval">जोडी घडी गिफ्ट सेट</div></div>
+        <div class="afield"><div class="aflabel">Description</div><div class="afval">COD नेपालभर • Free Box</div></div>
+      </div>
+      <div>
+        <div class="afield"><div class="aflabel">Video to Film</div><div class="afval">Couple wearing matching watches, holding hands, smiling, soft natural light. End with gift box shot + "Rs 1,999 for the set." Add: "Gift box FREE."</div></div>
+        <div class="afield"><div class="aflabel">Why It Converts</div><div class="afval">"प्रेम प्रदर्शन गर्नुहोस्" (express your love) + gift box + couples visual = emotional buy trigger. Runs during Valentine's, anniversaries, and Dashain. Consistently highest ROAS for gift products in South Asia.</div></div>
+        <button class="cbtn" onclick="cpAdSet(this)">📋 Copy All Ad Text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="adset">
+    <div class="astitle">📢 Set 4 — General Offer (Price + Trust) — All Campaigns</div>
+    <div class="g2">
+      <div>
+        <div class="afield"><div class="aflabel">Primary Text (Nepali)</div><div class="afval nepali">अब स्टाइल र क्लास दुवै एउटै घडीमा! SS Collection Rs ५०० देखि। १ वर्ष वारंटी + COD। आजै अर्डर गर्नुहोस्।</div></div>
+        <div class="afield"><div class="aflabel">Headline</div><div class="afval">स्टाइलिश घडी Rs ५०० मा</div></div>
+        <div class="afield"><div class="aflabel">Description</div><div class="afval">फ्री डेलिभरी + वारंटी</div></div>
+      </div>
+      <div>
+        <div class="afield"><div class="aflabel">Video to Film</div><div class="afval">3 watches lined up on table (bangle + gents + couple). Price tags visible. Then hand picking each one up. Clean light. Text overlay: "Rs 500 – Rs 2,600. 1 Year Warranty. COD Available."</div></div>
+        <div class="afield"><div class="aflabel">Why It Converts</div><div class="afval">Entry-price anchor "Rs 500 dekhi" pulls in budget buyers. 1-year warranty removes quality fear. COD removes payment risk. These three combined eliminate the three biggest reasons Nepali buyers don't purchase online.</div></div>
+        <button class="cbtn" onclick="cpAdSet(this)">📋 Copy All Ad Text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="adset">
+    <div class="astitle">📢 Set 5 — Urgency/Scarcity (Limited Stock) — Boost Best Performer</div>
+    <div class="g2">
+      <div>
+        <div class="afield"><div class="aflabel">Primary Text (Nepali)</div><div class="afval nepali">सीमित स्टक! SS Collection को स्टाइलिश घडीहरू Rs ४९९ देखि। छिटो अर्डर गर्नुहोस्, नेपालभर डेलिभरी।</div></div>
+        <div class="afield"><div class="aflabel">Headline</div><div class="afval">स्टक सीमित छ — आजै किन्नुहोस्!</div></div>
+        <div class="afield"><div class="aflabel">Description</div><div class="afval">आजै किन्नुहोस्</div></div>
+      </div>
+      <div>
+        <div class="afield"><div class="aflabel">Video to Film</div><div class="afval">Hand holding watch box + phone showing "Order Now" WhatsApp chat open. Text overlay: "Last few pieces left." End with your WhatsApp number large on screen.</div></div>
+        <div class="afield"><div class="aflabel">Why It Converts</div><div class="afval">"सीमित स्टक" (limited stock) + WhatsApp visual creates FOMO. The phone-holding-WhatsApp shot tells the buyer exactly what to do next — no confusion, zero friction. Use this as the retargeting ad for warm audiences.</div></div>
+        <button class="cbtn" onclick="cpAdSet(this)">📋 Copy All Ad Text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🔄 Retargeting Strategy (Once You Have 500+ Visitors)</h3>
+    <table>
+      <tr><th>Audience</th><th>Size</th><th>Message</th><th>Budget %</th></tr>
+      <tr><td><strong>Cold — New traffic</strong><br>Manual targeting above</td><td>All Nepal 18–45</td><td>Style + price + COD (use sets 1–5 above)</td><td>50% of budget</td></tr>
+      <tr><td><strong>Warm — Page engagers</strong><br>Video viewers 50%+, page visitors 180 days</td><td>Smaller, higher intent</td><td>Social proof + benefits: "हजारौं नेपालीले मन पराएको SS Collection" + testimonial photos</td><td>30% of budget</td></tr>
+      <tr><td><strong>Hot — Leads + non-buyers</strong><br>Your existing 100 leads + anyone who messaged</td><td>100+ now, grows daily</td><td>Urgency + special offer: "तपाईंले अझै अर्डर गर्नुभएको छैन — आजै COD + Free Delivery"</td><td>20% of budget</td></tr>
+    </table>
+    <div class="alert ok" style="margin-top:14px;"><strong>🚨 Do This TODAY:</strong> Retarget your existing 100 leads with the "Hot" message above. These people already showed interest. A Rs 200/day retargeting ad to just these 100 people could convert 10–30 of them within 7 days — with essentially zero acquisition cost.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ INFLUENCERS ══════════════════════════ -->
+<div id="influencers" class="section">
+  <div class="alert info"><strong>📌 Strategy:</strong> Start with top 5 (highest ER). Send barter DM — 1 free watch (Rs 675–950 cost) = 1 Reel + 2 Stories. Track via unique promo code per influencer. Aim for 8–10 collabs/month within Rs 10,000 product budget.</div>
+
+  <div class="panel gold">
+    <h3>⭐ Top Tier — Start Here First</h3>
+    <div class="inf-grid">
+      <div class="inf-card">
+        <div class="handle">@sristii.g</div>
+        <div class="istat">📍 Kathmandu Valley</div>
+        <div class="istat">👥 7,700 followers</div>
+        <div class="istat">📊 <strong style="color:var(--green)">9% ER</strong> — Highest engagement</div>
+        <div class="itag"><span class="tag green">Architecture/Fashion</span></div>
+        <p style="font-size:11.5px;color:#7A90A8;margin-top:6px;">Highest engagement rate in the list. Small but very loyal audience. Perfect for ladies/bangle watch showcase.</p>
+      </div>
+      <div class="inf-card">
+        <div class="handle">@hii.sanna</div>
+        <div class="istat">📍 Kathmandu</div>
+        <div class="istat">👥 33,100 followers</div>
+        <div class="istat">📊 <strong style="color:#E8A020)">3–5% ER</strong></div>
+        <div class="itag"><span class="tag gold">Lifestyle/Fashion/Motherhood</span></div>
+        <p style="font-size:11.5px;color:#7A90A8;margin-top:6px;">Strong local engagement. Wide demographic reach. Good for ladies watches and gift sets.</p>
+      </div>
+      <div class="inf-card">
+        <div class="handle">@suhani_khadka_chhetri</div>
+        <div class="istat">📍 Kathmandu Valley</div>
+        <div class="istat">👥 19,500 followers</div>
+        <div class="istat">📊 <strong style="color:var(--green)">6% ER</strong></div>
+        <div class="itag"><span class="tag gold">Fashion Model/Performer</span></div>
+        <p style="font-size:11.5px;color:#7A90A8;margin-top:6px;">High engagement for fashion. Watches will photograph beautifully with her styling. Best for premium ladies.</p>
+      </div>
+      <div class="inf-card">
+        <div class="handle">@rosa_poudel</div>
+        <div class="istat">📍 Kathmandu Valley</div>
+        <div class="istat">👥 5,700 followers</div>
+        <div class="istat">📊 <strong style="color:var(--green)">5.4% ER</strong></div>
+        <div class="itag"><span class="tag gold">Beauty/Fashion</span></div>
+        <p style="font-size:11.5px;color:#7A90A8;margin-top:6px;">Beauty audience loves accessories. High conversion intent for jewellery-style watches.</p>
+      </div>
+      <div class="inf-card">
+        <div class="handle">@twosteroo</div>
+        <div class="istat">📍 Kathmandu</div>
+        <div class="istat">👥 10,000 followers</div>
+        <div class="istat">📊 3–5% ER</div>
+        <div class="itag"><span class="tag blue">Couple/Lifestyle duo</span></div>
+        <p style="font-size:11.5px;color:#7A90A8;margin-top:6px;"><strong>⭐ Perfect for couple sets.</strong> A couple account promoting couple watches is authentic and highly shareable. Target for Valentine's and anniversary campaigns.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>📋 Full Influencer List (15 accounts)</h3>
+    <div class="inf-grid">
+      <div class="inf-card"><div class="handle">@_ashmita.shrestha_</div><div class="istat">👥 19.5K · Kathmandu · 4% ER</div><div class="itag"><span class="tag blue">Lifestyle & Fashion (thrift)</span></div></div>
+      <div class="inf-card"><div class="handle">@sandhya_byanju</div><div class="istat">👥 18.1K · Bhaktapur mentions · 3.6% ER</div><div class="itag"><span class="tag blue">Culture/Fashion</span></div><p style="font-size:11px;color:#7A90A8;margin-top:4px;">Based near Bhaktapur — LOCAL connection = authentic.</p></div>
+      <div class="inf-card"><div class="handle">@meiilanvisualarts</div><div class="istat">👥 14.4K · Kathmandu · 4% ER</div><div class="itag"><span class="tag blue">Fashion/Photography</span></div></div>
+      <div class="inf-card"><div class="handle">@anupama_shrestha</div><div class="istat">👥 13.8K · Kathmandu · 2% ER</div><div class="itag"><span class="tag gray">Fashion (grad/styling)</span></div></div>
+      <div class="inf-card"><div class="handle">@manitaa.s</div><div class="istat">👥 11.4K · Kathmandu · 1.5–3% ER</div><div class="itag"><span class="tag gray">Lifestyle/Fashion</span></div></div>
+      <div class="inf-card"><div class="handle">@prashamsharijal_</div><div class="istat">👥 9.9K · Kathmandu · 4.5% ER</div><div class="itag"><span class="tag gold">Fashion Designer/Stylist</span></div></div>
+      <div class="inf-card"><div class="handle">@_krz.studio</div><div class="istat">👥 6.5K · Kathmandu · 2.6% ER</div><div class="itag"><span class="tag blue">Fashion/Art/Product</span></div></div>
+      <div class="inf-card"><div class="handle">@sweetidngol</div><div class="istat">👥 6.5K · Nepal · 6% ER</div><div class="itag"><span class="tag gold">Lifestyle/Fashion/Travel</span></div></div>
+      <div class="inf-card"><div class="handle">@ushmeshrestha</div><div class="istat">👥 5.8K · Kathmandu · 1.4% ER</div><div class="itag"><span class="tag gray">Lifestyle/Travel</span></div></div>
+      <div class="inf-card"><div class="handle">@who.prasuna</div><div class="istat">👥 25.2K · Kathmandu · 4% ER</div><div class="itag"><span class="tag blue">Lifestyle/Content Creator</span></div></div>
+    </div>
+  </div>
+
+  <div class="panel green">
+    <h3>📨 Copy-Paste Outreach DM (English + Nepali — verified by Grok)</h3>
+    <div class="g2">
+      <div class="copybox">
+        <div class="clabel">English DM (personalize [Name] + [recent post])</div>
+        <pre>Hi [Name]! I loved your recent [specific OOTD reel / lifestyle post] — your style feels so fresh and authentic! 😊
+
+I'm [Your Name] from SS Collection, a small watch brand right here in Bhaktapur. We make stylish everyday watches (Rs 675–1,000).
+
+I'd love to gift you one free watch in exchange for an honest Reel + 2 Stories. No pressure — genuine collab only if it fits your vibe!
+
+Interested? Let me know!
+
+Best, [Your Name] | SS Collection, Bhaktapur</pre>
+        <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+      </div>
+      <div class="copybox">
+        <div class="clabel">Nepali DM (send this too for better response rate)</div>
+        <pre>नमस्ते [Name]! तपाईंको हालको [OOTD reel / lifestyle post] एकदम मन पर्यो — तपाईंको स्टाइल fresh र authentic लाग्यो! 😊
+
+म [Your Name] SS Collection बाट, भक्तपुरको सानो watch brand। हामी stylish daily watches (Rs ६७५–१०००) बेच्छौं।
+
+तपाईंलाई एउटा free घडी gift गर्न चाहन्छु — सट्टामा honest Reel + 2 Stories बनाउनुहोस्। कुनै pressure छैन!
+
+Interested हुनुहुन्छ?
+
+धन्यवाद — [Your Name] | SS Collection, Bhaktapur</pre>
+        <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>📊 Influencer Tracking System (No tech needed)</h3>
+    <div class="g2">
+      <div class="copybox">
+        <div class="clabel">Unique Code Format Per Influencer</div>
+        <pre>@hii.sanna       → Code: SSHS10
+@sristii.g       → Code: SSSG10
+@suhani_k...     → Code: SSSKC10
+@rosa_poudel     → Code: SSRP10
+@twosteroo       → Code: SSTS10
+@sandhya_byanju  → Code: SSSB10
+
+Each code = 10% discount OR free gift wrap.
+Ask buyer to say code when messaging on WhatsApp.</pre>
+        <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+      </div>
+      <div>
+        <h4 style="color:#9DB8D4;margin-bottom:10px;">Track in a Google Sheet:</h4>
+        <table>
+          <tr><th>Column</th><th>What to Record</th></tr>
+          <tr><td>Influencer</td><td>Handle + name</td></tr>
+          <tr><td>Watch sent</td><td>Model + date + cost (Rs 675–950)</td></tr>
+          <tr><td>Posts made</td><td>Reel link + Stories date</td></tr>
+          <tr><td>Code</td><td>Their unique code</td></tr>
+          <tr><td>Sales attributed</td><td>How many mentioned code</td></tr>
+          <tr><td>ROI</td><td>Sales value ÷ watch cost</td></tr>
+        </table>
+        <div class="alert ok" style="margin-top:10px;font-size:12px;">Keep only influencers with ROI > 3x. After 30 days, cut the rest and double down on the winners.</div>
+      </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Intelligence War Room</div>
+      <div class="nav-item" onclick="nav('enemy', this)">🎯 Enemy Intel</div>
+      <div class="nav-item" onclick="nav('market', this)">📊 Market Intel</div>
+      <div class="nav-item" onclick="nav('adcopies', this)">📢 Ad Arsenal</div>
+      <div class="nav-item" onclick="nav('influencers', this)">🤝 Influencers</div>
+      <div class="nav-item" onclick="nav('hashtags', this)"># Hashtags</div>
+      <div class="nav-item" onclick="nav('hooks', this)">🎬 Video Hooks</div>
+      <div class="nav-item" onclick="nav('battleplan', this)">⚔️ Battle Plan</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ HASHTAGS ══════════════════════════ -->
+<div id="hashtags" class="section">
+  <div class="alert info"><strong>💡 Usage Rule:</strong> Mix 5–8 per post: 3–4 Nepali + 2 English Nepal + 2 fashion + 1–2 gift. Click any hashtag to copy it. Use evenings 7–9 PM for maximum reach.</div>
+
+  <div class="panel">
+    <h3>🇳🇵 Nepali Language (Maximum Local Reach)</h3>
+    <div class="ht-grid" id="nepali-ht">
+      <div class="ht nepali" onclick="cpHt(this)">#घडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#पुरुषघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#महिलाघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#कपलघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#स्मार्टघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#नेफोर्सघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#स्कमेघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#घडीनेपाल</div>
+      <div class="ht nepali" onclick="cpHt(this)">#मेनसघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#लेडिजघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#बंगलघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#टाइटनघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#डिजिटलघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#फेस्टिभलघडी</div>
+      <div class="ht nepali" onclick="cpHt(this)">#गिफ्टघडी</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🇳🇵 English Nepal-Specific (Geo-targeted, High Search)</h3>
+    <div class="ht-grid">
+      <div class="ht" onclick="cpHt(this)">#NepalWatch</div>
+      <div class="ht" onclick="cpHt(this)">#MensWatchNepal</div>
+      <div class="ht" onclick="cpHt(this)">#WatchNepal</div>
+      <div class="ht" onclick="cpHt(this)">#LadiesWatchNepal</div>
+      <div class="ht" onclick="cpHt(this)">#CoupleWatchNepal</div>
+      <div class="ht" onclick="cpHt(this)">#BhaktapurWatch</div>
+      <div class="ht" onclick="cpHt(this)">#NepalFashionWatch</div>
+      <div class="ht" onclick="cpHt(this)">#WatchPriceNepal</div>
+      <div class="ht" onclick="cpHt(this)">#NepaliWatch</div>
+      <div class="ht" onclick="cpHt(this)">#SSCollection</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🌍 General Fashion (Broad Reach + Algorithm)</h3>
+    <div class="ht-grid">
+      <div class="ht" onclick="cpHt(this)">#Watches</div>
+      <div class="ht" onclick="cpHt(this)">#WristWatch</div>
+      <div class="ht" onclick="cpHt(this)">#FashionWatch</div>
+      <div class="ht" onclick="cpHt(this)">#StyleWatch</div>
+      <div class="ht" onclick="cpHt(this)">#LuxuryLook</div>
+      <div class="ht" onclick="cpHt(this)">#MinimalistWatch</div>
+      <div class="ht" onclick="cpHt(this)">#Chronograph</div>
+      <div class="ht" onclick="cpHt(this)">#StainlessSteelWatch</div>
+      <div class="ht" onclick="cpHt(this)">#LeatherStrapWatch</div>
+      <div class="ht" onclick="cpHt(this)">#TrendingWatch</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🎁 Gift/Occasion (Festival & Gifting Spikes)</h3>
+    <div class="ht-grid">
+      <div class="ht" onclick="cpHt(this)">#GiftWatch</div>
+      <div class="ht" onclick="cpHt(this)">#CoupleGift</div>
+      <div class="ht" onclick="cpHt(this)">#AnniversaryGift</div>
+      <div class="ht" onclick="cpHt(this)">#DashainGift</div>
+      <div class="ht" onclick="cpHt(this)">#TiharGift</div>
+      <div class="ht" onclick="cpHt(this)">#ValentinesWatch</div>
+      <div class="ht" onclick="cpHt(this)">#BirthdayGiftNepal</div>
+      <div class="ht" onclick="cpHt(this)">#HisAndHers</div>
+      <div class="ht" onclick="cpHt(this)">#WatchGiftSet</div>
+      <div class="ht" onclick="cpHt(this)">#FestiveShopping</div>
+    </div>
+  </div>
+
+  <div class="panel gold">
+    <h3>📋 Ready-to-Copy Post Hashtag Combos</h3>
+    <div class="copybox">
+      <div class="clabel">Combo 1 — Ladies/Bangle Post</div>
+      <pre>#घडी #महिलाघडी #बंगलघडी #WatchNepal #LadiesWatchNepal #BhaktapurWatch #FashionWatch #GiftWatch #SSCollection</pre>
+      <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+    </div>
+    <div class="copybox">
+      <div class="clabel">Combo 2 — Gents/Premium Post</div>
+      <pre>#घडी #पुरुषघडी #MensWatchNepal #WatchNepal #Chronograph #StyleWatch #BhaktapurWatch #GiftWatch #SSCollection</pre>
+      <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+    </div>
+    <div class="copybox">
+      <div class="clabel">Combo 3 — Couple/Gift Set Post</div>
+      <pre>#कपलघडी #CoupleWatchNepal #HisAndHers #CoupleGift #AnniversaryGift #WatchGiftSet #NepaliWatch #SSCollection #DashainGift</pre>
+      <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+    </div>
+    <div class="copybox">
+      <div class="clabel">Combo 4 — Digital/Youth Post</div>
+      <pre>#डिजिटलघडी #WatchNepal #FashionWatch #TrendingWatch #WatchPriceNepal #LasikaDigi #SSCollection #NepalWatch #StyleWatch</pre>
+      <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+    </div>
+    <div class="copybox">
+      <div class="clabel">Combo 5 — Dashain/Tihar Campaign</div>
+      <pre>#DashainGift #TiharGift #FestiveShopping #घडी #WatchNepal #GiftWatch #CoupleGift #BhaktapurWatch #SSCollection #NepaliWatch</pre>
+      <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+
+    <div class="nav-group">
+      <div class="nav-label">Intelligence War Room</div>
+      <div class="nav-item" onclick="nav('enemy', this)">🎯 Enemy Intel</div>
+      <div class="nav-item" onclick="nav('market', this)">📊 Market Intel</div>
+      <div class="nav-item" onclick="nav('adcopies', this)">📢 Ad Arsenal</div>
+      <div class="nav-item" onclick="nav('influencers', this)">🤝 Influencers</div>
+      <div class="nav-item" onclick="nav('hashtags', this)"># Hashtags</div>
+      <div class="nav-item" onclick="nav('hooks', this)">🎬 Video Hooks</div>
+      <div class="nav-item" onclick="nav('battleplan', this)">⚔️ Battle Plan</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ VIDEO HOOKS ══════════════════════════ -->
+<div id="hooks" class="section">
+  <div class="alert warn"><strong>🎬 Rule:</strong> First 3 seconds determine whether your video gets watched. Film all of these with just your phone. Natural light is better than indoor light. Film the hook 5–10 times and keep the best take. These 3 hooks are confirmed high-performers from South Asian watch market data.</div>
+
+  <div class="hook-card">
+    <div class="htitle">🥇 Hook 1 — Wrist Sparkle/Transformation (Best Performer)</div>
+    <div class="hscript">
+      <strong>What to film (0–3 sec):</strong> Bare wrist → slide watch on slowly → twist wrist to catch light.<br><br>
+      <strong>Nepali text overlay:</strong> "यो घडी लगाएपछि स्टाइल एकदम फरक पर्छ!" (Your style completely changes after wearing this watch!)<br><br>
+      <strong>Continue (3–15 sec):</strong> Show watch from multiple angles. Price reveal at 8 sec: "मात्र Rs [PRICE] मा" (Only Rs X). End: WhatsApp number on screen + "COD Available."<br><br>
+      <strong>Music:</strong> Trending Nepali/Hindi beat or upbeat instrumental. Low volume.
+    </div>
+    <div class="hphone">📱 Phone tip: Hold hand steady in sunlight near a window. Slow rotate to catch light sparkle on dial/strap. Film in 1080p. If bangle watch, this hook is 10x more powerful — the sparkle is irresistible.</div>
+  </div>
+
+  <div class="hook-card">
+    <div class="htitle">🥈 Hook 2 — Price Pop Reveal (Drives Immediate Clicks)</div>
+    <div class="hscript">
+      <strong>What to film (0–3 sec):</strong> Close-up of watch face in hand → flip over showing the dial → price text explodes on screen.<br><br>
+      <strong>On-screen text sequence:</strong> "Bazarma Rs 4,000+ 🚫" (cross out) → "Hamro Price: Rs 999 ✅"<br><br>
+      <strong>Nepali voice/text:</strong> "मात्र Rs ९९९ मा premium look!" (Premium look for only Rs 999!)<br><br>
+      <strong>Continue:</strong> Show 3 colour options. End: "Direct import — 1 year warranty — COD Nepal." WhatsApp number.
+    </div>
+    <div class="hphone">📱 Phone tip: Film watch in slow motion (120fps if your phone supports). Add "Rs 999" text overlay in CapCut/InShot at the 2-second mark — time it to explode on screen. Red "Rs 4,000 🚫" crossed out with green "Rs 999 ✅" is a proven click magnet.</div>
+  </div>
+
+  <div class="hook-card">
+    <div class="htitle">🥉 Hook 3 — Gift/Couple Moment (Highest Emotional Response)</div>
+    <div class="hscript">
+      <strong>What to film (0–3 sec):</strong> One hand passing a watch (or gift box) to another person's hand → both people put watches on → smile and hold hands showing both watches.<br><br>
+      <strong>Nepali text overlay:</strong> "परफेक्ट गिफ्ट प्रियजनलाई!" (The perfect gift for your loved one!)<br><br>
+      <strong>Continue:</strong> Show box, packaging, "Gents + Ladies set Rs 1,999." End: "Gift wrapping FREE. COD available. WhatsApp: [NUMBER]."<br><br>
+      <strong>Best timing:</strong> Run this hook specifically before Dashain, Tihar, Valentine's Day — emotional triggers are 3x stronger during festival season.
+    </div>
+    <div class="hphone">📱 Phone tip: Film with a friend or partner. Natural sunlight. Keep it genuine and unscripted — the reaction when seeing the watches together should be real. Nepali buyers respond most to authenticity and real emotion, not studio-perfect production.</div>
+  </div>
+
+  <div class="panel">
+    <h3>⚡ Quick Video Filming Guide (30-Minute Session)</h3>
+    <table>
+      <tr><th>#</th><th>What to Film</th><th>Duration</th><th>Use For</th></tr>
+      <tr><td>1</td><td>Wrist sparkle — all 3 hooks of bangle watch in sunlight</td><td>5 min</td><td>Facebook Reel + Instagram Reel + Ad creative</td></tr>
+      <tr><td>2</td><td>Price pop reveal — Miracle M01 gents Rs 1,900 vs "bazarma Rs 4,000"</td><td>5 min</td><td>Facebook Ad Set 2 + organic post</td></tr>
+      <tr><td>3</td><td>Couple set unboxing + both hands wearing watches</td><td>5 min</td><td>Facebook Ad Set 3 + Valentine's campaign</td></tr>
+      <tr><td>4</td><td>Lasika Digital — 5 colour options laid out, slow pan across</td><td>5 min</td><td>Youth-targeted Reel</td></tr>
+      <tr><td>5</td><td>Full stock shelf/table shot — showing variety ("55+ watches")</td><td>5 min</td><td>Trust-building post, Instagram grid</td></tr>
+      <tr><td>6</td><td>You packing an order with gift wrap — behind the scenes</td><td>5 min</td><td>Sunday "behind the scenes" post — builds massive trust</td></tr>
+    </table>
+    <div class="alert ok" style="margin-top:12px;"><strong>30 minutes of filming = 6 ready-to-post Reels</strong> that can run as both organic content AND paid ad creatives. This is the highest ROI 30 minutes you can spend on SS Collection this week.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ BATTLE PLAN ══════════════════════════ -->
+<div id="battleplan" class="section">
+  <div class="alert danger"><strong>⚔️ The War:</strong> You are fighting The Watch Lounge ecosystem (one consolidated Lalitpur operation, ~133K followers, physical store, 5,000+ models, 1-year warranty). They have scale. You have <strong>location, niche depth, bangle collection, digital volume, and the ability to out-execute them on WhatsApp response time</strong>. Win on speed, depth, and local authenticity. They cannot pivot fast. You can.</div>
+
+  <div class="panel gold">
+    <h3>🗓️ This Week's Battle Orders (Priority Sequence)</h3>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-t">TODAY — Kill Advantage Plus. Launch 3 manual campaigns (settings in Ad Arsenal tab).</div><div class="tl-d">Rs 200/day each = Rs 600/day total. WhatsApp Messages objective. Manual Nepal targeting. You were bleeding money on bad audience — stop it today.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-t">TODAY — Retarget your 100 existing leads with Hot audience message.</div><div class="tl-d">These 100 people already showed interest. Rs 150/day retargeting them is the cheapest sale you can possibly make. Do this before anything else.</div></div>
+      <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-t">Day 2 — Film 6 videos (30 min session — see Video Hooks tab).</div><div class="tl-d">Wrist sparkle + price pop + couple moment + Lasika Digital + stock variety + packing order. These become your next 2 weeks of content AND your ad creatives.</div></div>
+      <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-t">Day 2 — DM top 5 influencers from the list (copy-paste DM in Influencers tab).</div><div class="tl-d">@sristii.g, @hii.sanna, @suhani_khadka_chhetri, @rosa_poudel, @twosteroo. Send both English and Nepali versions. Personalize with their most recent post reference.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Day 3 — Add trust package to EVERY existing Facebook post (edit them now).</div><div class="tl-d">"✅ 1 Year Warranty ✅ 7 Day Exchange ✅ Free Delivery ✅ COD ✅ WhatsApp: [NUMBER]" — this alone can revive old posts.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Day 4 — Launch "Orvin Bangle Collection" Reel — 9 variants in one shot.</div><div class="tl-d">Film all 9 Orvin bangle variants lined up or in a slow fan reveal. Caption: "Nepal ma sabai bhandaa thulo bangle watch collection! Rs 1,999. 9 designs. FREE delivery." This is a product no one else has concentrated like this.</div></div>
+      <div class="tl-item"><div class="tl-dot green"></div><div class="tl-t">Day 7 — Review: which ad got the most WhatsApp messages? Scale it 2x. Kill the others.</div><div class="tl-d">After 7 days you will know which of your 3 campaigns (ladies/gents/couple) is working. Scale the winner. This is how The Watch Lounge built their 68K — they found what worked and doubled it relentlessly.</div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="panel">
+      <h3>📊 6-Month Revenue Trajectory (Realistic)</h3>
+      <table>
+        <tr><th>Month</th><th>Orders/Week</th><th>Revenue</th><th>Net Profit</th></tr>
+        <tr><td><strong>Month 1</strong><br>Foundation</td><td>2–5</td><td>Rs 13,000–32,000</td><td>Rs 3,000–10,000</td></tr>
+        <tr><td><strong>Month 2</strong><br>Growth</td><td>5–10</td><td>Rs 32,000–64,000</td><td>Rs 10,000–24,000</td></tr>
+        <tr><td><strong>Month 3</strong><br>Scale</td><td>10–20</td><td>Rs 64,000–128,000</td><td>Rs 24,000–52,000</td></tr>
+        <tr><td><strong>Month 4–5</strong><br>Optimize</td><td>20–35</td><td>Rs 128,000–224,000</td><td>Rs 48,000–90,000</td></tr>
+        <tr style="background:rgba(39,174,96,.1)"><td><strong>Month 6</strong><br>Dashain PEAK</td><td>50–80</td><td>Rs 320,000–512,000</td><td>Rs 120,000–200,000</td></tr>
+      </table>
+      <p style="font-size:11.5px;color:#7A90A8;margin-top:8px;">* Month 6 projection assumes Dashain campaign running. Average order Rs 1,600. 50% gross margin. Festival uplift 40–70%. These numbers are what The Watch Lounge type operations generate during Dashain.</p>
+    </div>
+    <div class="panel">
+      <h3>🏆 The Single Most Important Thing (Grok's Finding)</h3>
+      <div class="alert ok">The Watch Lounge, NaviForce, and SKMEI all built Nepal's top watch pages on the same foundation: <strong>(1) consistent short videos, (2) price shown every time, (3) trust package on every post, (4) WhatsApp number everywhere, (5) fast reply.</strong> These are not complicated. There is no secret formula. The gap between them and SS Collection right now is purely execution consistency — they did these 5 things every single day for 2–3 years. You are starting from zero but you have better product depth, lower prices in key segments, and a location advantage. Match their trust signals and out-execute them on speed and bangle/couple niche depth.</div>
+      <div class="copybox" style="margin-top:12px;">
+        <div class="clabel">SS Collection's Core Brand Message (Memorize This)</div>
+        <pre>भक्तपुरको सबैभन्दा छिटो watch delivery।
+नेपालकै सबैभन्दा ठूलो bangle watch collection।
+Rs 500 देखि Rs 2,600 — 1 year warranty + COD।
+Bhaktapur's fastest watch delivery.
+Nepal's widest designer fashion watch range.
+Rs 500–2,600. COD. 1-year warranty.</pre>
+        <button class="cbtn" onclick="copyTxt(this)">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -660,7 +1416,7 @@ Shubha Dashain! 🙏
   const titles = {
     dash: '🔥 Operations Hub', products: '💎 Product Gallery', calc: '💰 Revenue Engine', 
     whatsapp: '💬 WA Sales System', ads: '🎯 FB Ads Blueprint', content: '✍️ Content & Calendar'
-  };
+, enemy: '🎯 Enemy Intel', market: '📊 Market Intel', adcopies: '📢 Ad Arsenal', influencers: '🤝 Influencers', hashtags: '# Hashtags', hooks: '🎬 Video Hooks', battleplan: '⚔️ Battle Plan'   };
   
   function nav(id, el) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -764,6 +1520,11 @@ function renderGallery(filter) {
     calcProfit();
     loadCatalog();
   }
+
+  // WAR ROOM JS
+function cp(btn){const pre=btn.previousElementSibling;const txt=pre?pre.textContent.trim():'';navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✅ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('ok');},2000);});}
+function cpHt(el){navigator.clipboard.writeText(el.textContent.trim()).then(()=>{el.classList.add('copied');setTimeout(()=>el.classList.remove('copied'),1500);});}
+function cpAdSet(btn){const adset=btn.closest('.adset');const fields=adset.querySelectorAll('.afval');let out='';adset.querySelectorAll('.afield').forEach(f=>{const lbl=f.querySelector('.aflabel');const val=f.querySelector('.afval');if(lbl&&val)out+=lbl.textContent.trim()+'\n'+val.textContent.trim()+'\n\n';}
 </script>
 </body>
 </html>
