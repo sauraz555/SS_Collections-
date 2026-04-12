@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SS Collection — Full Marketing Dashboard</title>
+<style>
+  :root{--dark:#1A3A5C;--mid:#2E6DA4;--light:#D6E8F7;--gold:#E8A020;--green:#27AE60;--red:#E74C3C;--gray:#F4F6F8;--border:#E0E4E8;--text:#1C1C1C;--muted:#6B7280;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#EEF2F7;color:var(--text);}
+  .sidebar{position:fixed;top:0;left:0;width:235px;height:100vh;background:var(--dark);color:white;display:flex;flex-direction:column;z-index:100;overflow-y:auto;}
+  .brand{padding:20px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.12);}
+  .brand h1{font-size:16px;font-weight:700;color:var(--gold);letter-spacing:.5px;}
+  .brand p{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
+  .nav{padding:10px 0;flex:1;}
+  .nav-item{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;font-size:13px;color:rgba(255,255,255,.72);transition:all .14s;border-left:3px solid transparent;}
+  .nav-item:hover,.nav-item.active{background:rgba(255,255,255,.08);color:white;border-left-color:var(--gold);}
+  .nav-item .ic{font-size:15px;width:18px;text-align:center;}
+  .nav-sec{font-size:10px;color:rgba(255,255,255,.3);padding:12px 16px 3px;letter-spacing:1px;text-transform:uppercase;}
+  .main{margin-left:235px;min-height:100vh;}
+  .topbar{background:white;padding:13px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
+  .topbar h2{font-size:17px;font-weight:600;color:var(--dark);}
+  .badge{background:var(--gold);color:white;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600;}
+  .content{padding:22px 26px;}
+  .section{display:none;}.section.active{display:block;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px;}
+  .kpi{background:white;border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--mid);}
+  .kpi.gold{border-left-color:var(--gold);}.kpi.green{border-left-color:var(--green);}.kpi.red{border-left-color:var(--red);}
+  .kpi-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;}
+  .kpi-val{font-size:24px;font-weight:700;color:var(--dark);}
+  .kpi-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .card{background:white;border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.07);}
+  .card h3{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:12px;padding-bottom:9px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:7px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th{background:var(--dark);color:white;padding:9px 11px;text-align:left;font-size:12px;}
+  td{padding:8px 11px;border-bottom:1px solid var(--border);vertical-align:top;}
+  tr:hover td{background:var(--gray);}tr:last-child td{border-bottom:none;}
+  .tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;}
+  .tag.green{background:#D5F5E3;color:#1E8449;}.tag.orange{background:#FDEBD0;color:#D35400;}.tag.blue{background:var(--light);color:var(--dark);}.tag.red{background:#FADBD8;color:#C0392B;}.tag.gold{background:#FFF0D0;color:#996600;}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .alert{border-radius:8px;padding:13px 15px;margin-bottom:14px;font-size:13px;line-height:1.6;}
+  .alert.warn{background:#FFF8E8;border-left:4px solid var(--gold);}
+  .alert.info{background:var(--light);border-left:4px solid var(--mid);}
+  .alert.danger{background:#FFE8E8;border-left:4px solid var(--red);}
+  .alert.ok{background:#E8F8EE;border-left:4px solid var(--green);}
+  .post{background:#F8FBFF;border:1px solid #C5DCF0;border-radius:8px;padding:14px;margin-bottom:12px;}
+  .post .plabel{font-size:10px;font-weight:700;color:var(--mid);margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px;}
+  .post pre{font-family:inherit;white-space:pre-wrap;font-size:12.5px;color:var(--text);line-height:1.65;}
+  .cpybtn{background:var(--mid);color:white;border:none;padding:5px 12px;border-radius:5px;font-size:11px;cursor:pointer;margin-top:8px;transition:background .15s;}
+  .cpybtn:hover{background:var(--dark);}.cpybtn.ok{background:var(--green);}
+  /* PROMPT BOX — terminal style */
+  .pbox{background:#0D1117;color:#E6EDF3;border-radius:8px;padding:16px;margin-bottom:14px;font-size:12.5px;line-height:1.75;position:relative;}
+  .pbox .plbl{color:var(--gold);font-size:10px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;}
+  .pbox .ptxt{color:#C8D0E0;}
+  .pbox .phighlight{color:#79C0FF;}
+  .pbox .pwarning{color:#FF7B72;}
+  .tl{position:relative;padding-left:26px;}.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--border);}
+  .tl-item{position:relative;margin-bottom:18px;}
+  .tl-dot{position:absolute;left:-22px;top:3px;width:13px;height:13px;border-radius:50%;background:var(--mid);border:2px solid white;box-shadow:0 0 0 2px var(--mid);}
+  .tl-dot.gold{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}.tl-dot.green{background:var(--green);box-shadow:0 0 0 2px var(--green);}
+  .tl-t{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px;}
+  .tl-d{font-size:12.5px;color:var(--muted);line-height:1.5;}
+  ul.cl{list-style:none;}
+  ul.cl li{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12.5px;}
+  ul.cl li:last-child{border-bottom:none;}
+  ul.cl li input{margin-top:2px;cursor:pointer;accent-color:var(--green);transform:scale(1.15);flex-shrink:0;}
+  ul.cl li label{cursor:pointer;line-height:1.5;}
+  ul.cl li.done label{text-decoration:line-through;color:var(--muted);}
+  .pbr{height:7px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+  .pbf{height:100%;border-radius:4px;background:var(--mid);transition:width .4s;}
+  .pbf.gold{background:var(--gold);}.pbf.green{background:var(--green);}
+  .pbwrap{margin-bottom:11px;}
+  .pbwrap .pbl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:4px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;}
+  .cal-day{background:var(--gray);border-radius:7px;padding:11px;border-top:3px solid var(--mid);}
+  .cal-day .dn{font-size:10px;font-weight:700;color:var(--dark);margin-bottom:5px;text-transform:uppercase;}
+  .cal-day .ct{font-size:11px;color:var(--mid);font-weight:600;margin-bottom:3px;}
+  .cal-day .cd{font-size:11px;color:var(--muted);line-height:1.4;}
+  .cal-day:nth-child(6),.cal-day:nth-child(7){border-top-color:var(--gold);}
+  /* Product table filters */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .filter-btn{background:var(--gray);border:1px solid var(--border);padding:5px 12px;border-radius:16px;font-size:12px;cursor:pointer;transition:all .14s;}
+  .filter-btn.active,.filter-btn:hover{background:var(--dark);color:white;border-color:var(--dark);}
+  /* Profit calculator */
+  .calc{background:var(--gray);border-radius:8px;padding:16px;margin-bottom:14px;}
+  .calc input[type=range]{width:100%;margin:8px 0;}
+  .calc label{font-size:12px;color:var(--muted);}
+  .calc .big{font-size:28px;font-weight:700;color:var(--green);}
+  @media(max-width:900px){.g2,.g3{grid-template-columns:1fr;}.cal-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:680px){.sidebar{width:55px;}.sidebar .nav-item span,.sidebar .brand p,.sidebar .brand h1,.sidebar .nav-sec{display:none;}.main{margin-left:55px;}}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="brand"><h1>⌚ SS Collection</h1><p>Bhaktapur · Full Marketing OS</p></div>
+  <div class="nav">
+    <div class="nav-sec">Overview</div>
+    <div class="nav-item active" onclick="show('dash',this)"><span class="ic">📊</span><span>Dashboard</span></div>
+    <div class="nav-item" onclick="show('products',this)"><span class="ic">🕐</span><span>All Products (55+)</span></div>
+    <div class="nav-sec">Strategy</div>
+    <div class="nav-item" onclick="show('audience',this)"><span class="ic">🎯</span><span>Audience</span></div>
+    <div class="nav-item" onclick="show('ads',this)"><span class="ic">📘</span><span>Facebook Ads Fix</span></div>
+    <div class="nav-item" onclick="show('calendar',this)"><span class="ic">📅</span><span>Content Calendar</span></div>
+    <div class="nav-item" onclick="show('seasonal',this)"><span class="ic">🎉</span><span>Seasonal Campaigns</span></div>
+    <div class="nav-sec">Execution</div>
+    <div class="nav-item" onclick="show('whatsapp',this)"><span class="ic">💬</span><span>WhatsApp System</span></div>
+    <div class="nav-item" onclick="show('posts',this)"><span class="ic">✍️</span><span>Post Templates</span></div>
+    <div class="nav-item" onclick="show('ai',this)"><span class="ic">🤖</span><span>AI Prompt Arsenal</span></div>
+    <div class="nav-sec">Plan</div>
+    <div class="nav-item" onclick="show('plan',this)"><span class="ic">🗓️</span><span>90-Day Checklist</span></div>
+    <div class="nav-item" onclick="show('budget',this)"><span class="ic">💰</span><span>Budget & KPIs</span></div>
+  </div>
+</nav>
+
+<div class="main">
+<div class="topbar"><h2 id="ptitle">Marketing Dashboard</h2><span class="badge">Nepal · 2082 B.S.</span></div>
+<div class="content">
+
+<!-- ══════════════════════════ DASHBOARD ══════════════════════════ -->
+<div id="dash" class="section active">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-lbl">Products in Catalog</div><div class="kpi-val">55+</div><div class="kpi-sub">Across 22 catalog pages</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Current Conversion</div><div class="kpi-val">0%</div><div class="kpi-sub">100 leads, $35 spent → 0 sales</div></div>
+    <div class="kpi gold"><div class="kpi-lbl">Target Month 3</div><div class="kpi-val">Rs 45K+</div><div class="kpi-sub">Revenue per month</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Gross Margin</div><div class="kpi-val">50%</div><div class="kpi-sub">At 2× markup across all SKUs</div></div>
+  </div>
+  <div class="alert danger"><strong>🚫 Root Cause:</strong> Advantage Plus = unqualified cold traffic. No WhatsApp follow-up = 100 leads evaporated. No price shown = buyers dropped off. No urgency = no reason to act. This plan fixes all 5 problems from Day 1.</div>
+  <div class="g2">
+    <div class="card"><h3>✅ Situation Audit</h3>
+      <table><tr><th>Item</th><th>Status</th></tr>
+        <tr><td>Real stock — 55+ product lines</td><td><span class="tag green">✅ Strong</span></td></tr>
+        <tr><td>Product photos & videos (MP4s)</td><td><span class="tag green">✅ Ready</span></td></tr>
+        <tr><td>Facebook page active</td><td><span class="tag green">✅ Active</span></td></tr>
+        <tr><td>Facebook ad targeting (Advantage+)</td><td><span class="tag red">❌ Fix Now</span></td></tr>
+        <tr><td>WhatsApp Business setup</td><td><span class="tag red">❌ Missing</span></td></tr>
+        <tr><td>Price shown in posts/ads</td><td><span class="tag orange">⚠️ Add Now</span></td></tr>
+        <tr><td>Lead follow-up within 5 min</td><td><span class="tag red">❌ Build</span></td></tr>
+        <tr><td>Social proof / testimonials</td><td><span class="tag orange">⚠️ Collect</span></td></tr>
+        <tr><td>Instagram account</td><td><span class="tag orange">⚠️ Create</span></td></tr>
+        <tr><td>Influencer partnerships</td><td><span class="tag orange">⚠️ Start</span></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>🚀 Top 5 Actions This Week</h3>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-t">1. Install WhatsApp Business TODAY</div><div class="tl-d">Free app. Catalogue, auto-reply, profile. Single most impactful action you can take.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">2. Kill Advantage Plus. Switch to MESSAGES</div><div class="tl-d">WhatsApp Message objective + manual Bagmati targeting. Rs 200/day budget.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">3. Post daily — use templates in this app</div><div class="tl-d">Nepali captions with price shown. Couple set video as first paid creative.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">4. Create Instagram. Upload PU Sport Reels</div><div class="tl-d">Your existing MP4 videos are ready. Reels reach 18-30 year olds for free.</div></div>
+        <div class="tl-item"><div class="tl-dot green"></div><div class="tl-t">5. DM 3 micro-influencers for barter</div><div class="tl-d">Free watch (Rs 675 cost) = 1 Reel + 2 Stories = 5K–20K local impressions.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><h3>📊 90-Day Progress Tracker</h3>
+    <div class="pbwrap"><div class="pbl"><span>Month 1 — Foundation</span><span id="op1">0%</span></div><div class="pbr"><div class="pbf" id="ob1" style="width:0%"></div></div></div>
+    <div class="pbwrap"><div class="pbl"><span>Month 2 — Growth</span><span id="op2">0%</span></div><div class="pbr"><div class="pbf gold" id="ob2" style="width:0%"></div></div></div>
+    <div class="pbwrap"><div class="pbl"><span>Month 3 — Scale</span><span id="op3">0%</span></div><div class="pbr"><div class="pbf green" id="ob3" style="width:0%"></div></div></div>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:8px;">Tick tasks in the 90-Day Checklist — bars update automatically.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════ PRODUCTS ══════════════════════════ -->
+<div id="products" class="section">
+  <div class="alert info"><strong>📦 Complete Catalog:</strong> 55+ unique product lines across 22 catalog pages. All retail prices = 2× cost (your target). Filter by category below. Total SKUs including colour variants: 100+</div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterProd('all',this)">All Products</button>
+    <button class="filter-btn" onclick="filterProd('miracle',this)">Miracle Brand</button>
+    <button class="filter-btn" onclick="filterProd('premium',this)">Premium Gents</button>
+    <button class="filter-btn" onclick="filterProd('ladies',this)">Ladies / Bangle</button>
+    <button class="filter-btn" onclick="filterProd('digital',this)">Digital / Sport</button>
+    <button class="filter-btn" onclick="filterProd('couple',this)">Couple / Gift Sets</button>
+    <button class="filter-btn" onclick="filterProd('acc',this)">Accessories</button>
+  </div>
+  <div class="card"><h3>🕐 Full Product Catalog — Cost → Retail (2×)</h3>
+  <table id="prod-table">
+    <tr><th>Product</th><th>Category</th><th>Cost (NPR)</th><th>Retail (NPR)</th><th>Profit</th><th>Best Buyer</th></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Langbo Fancy Chain</strong></td><td><span class="tag blue">Ladies</span></td><td>Rs 575–675</td><td>Rs 1,150–1,350</td><td>Rs 575–675</td><td>Ladies fashion, gift</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle 3022 PU Leather Band</strong></td><td><span class="tag blue">Gents/Ladies</span></td><td>Rs 450</td><td>Rs 900</td><td>Rs 450</td><td>Youth, daily wear</td></tr>
+    <tr data-cat="digital"><td><strong>Panda PU LB</strong></td><td><span class="tag orange">Sport/Kids</span></td><td>Rs 250</td><td>Rs 500</td><td>Rs 250</td><td>Youth, students</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M83 / M83 Gents</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Young professionals</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M01 Gents</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 950</td><td>Rs 1,900</td><td>Rs 950</td><td>Office professionals</td></tr>
+    <tr data-cat="digital"><td><strong>Repeat LB</strong></td><td><span class="tag orange">Sport</span></td><td>Rs 250</td><td>Rs 500</td><td>Rs 250</td><td>Youth</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M02 Gents</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 950</td><td>Rs 1,900</td><td>Rs 950</td><td>Office professionals</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Bangle</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="premium"><td><strong>Omega Gents 086</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Gift, premium buyers</td></tr>
+    <tr data-cat="premium ladies"><td><strong>Omega Ladies 086</strong></td><td><span class="tag gold">Premium Ladies</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Gift, premium ladies</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M083 Ladies</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Young ladies</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle Cut Glass Gents</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>⭐ Best premium seller</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Cut Glass Ladies</strong></td><td><span class="tag gold">Premium Ladies</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>⭐ Best ladies gift</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M080 Gents</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Office wear</td></tr>
+    <tr data-cat="ladies"><td><strong>Nurse Watch</strong></td><td><span class="tag green">Niche</span></td><td>Rs 275</td><td>Rs 550</td><td>Rs 275</td><td>Nurses, medical staff</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Open Bangle (3 variants)</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 750–800</td><td>Rs 1,500–1,600</td><td>Rs 750–800</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M080 Ladies</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M033 Ladies</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle Colour Square Small</strong></td><td><span class="tag orange">Colourful</span></td><td>Rs 450</td><td>Rs 900</td><td>Rs 450</td><td>Youth, girls</td></tr>
+    <tr data-cat="ladies"><td><strong>Rolex Open Bangle (3 variants)</strong></td><td><span class="tag gold">Premium Ladies</span></td><td>Rs 850</td><td>Rs 1,700</td><td>Rs 850</td><td>Luxury look ladies</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M040</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Office, daily wear</td></tr>
+    <tr data-cat="premium"><td><strong>Rado Ra03</strong></td><td><span class="tag gold">Premium</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Premium look buyers</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M037 (2 variants)</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 800</td><td>Rs 1,600</td><td>Rs 800</td><td>Smart casual</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle Smart LB 123</strong></td><td><span class="tag orange">Smart Look</span></td><td>Rs 600</td><td>Rs 1,200</td><td>Rs 600</td><td>Tech-look youth</td></tr>
+    <tr data-cat="premium"><td><strong>Mountblanc Crono</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Executive gift</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M59</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Daily wear</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Ladies M031</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 800–900</td><td>Rs 1,600–1,800</td><td>Rs 800–900</td><td>Ladies gift</td></tr>
+    <tr data-cat="miracle couple"><td><strong>Miracle Gents M031</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 800–900</td><td>Rs 1,600–1,800</td><td>Rs 800–900</td><td>Couple set component</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M056 Bangle</strong></td><td><span class="tag green">Bangle</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle PU Sport LB</strong></td><td><span class="tag orange">Sport</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Sports, outdoor youth</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Ladies Open Bangle</strong></td><td><span class="tag green">Bangle</span></td><td>Rs 800</td><td>Rs 1,600</td><td>Rs 800</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M51</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Daily wear</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle Apple LB</strong></td><td><span class="tag orange">Smartwatch-look</span></td><td>Rs 450</td><td>Rs 900</td><td>Rs 450</td><td>Youth, tech fans</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M041 LB</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 650</td><td>Rs 1,300</td><td>Rs 650</td><td>Young professionals</td></tr>
+    <tr data-cat="premium"><td><strong>Skemi SK01</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 600</td><td>Rs 1,200</td><td>Rs 600</td><td>Premium look buyers</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M60 Open Bangle</strong></td><td><span class="tag green">Bangle</span></td><td>Rs 800</td><td>Rs 1,600</td><td>Rs 800</td><td>Ladies fashion</td></tr>
+    <tr data-cat="ladies couple"><td><strong>MK Bangle (6 colours)</strong></td><td><span class="tag green">Bangle</span></td><td>Rs 500</td><td>Rs 1,000</td><td>Rs 500</td><td>⭐ Budget ladies, gifts</td></tr>
+    <tr data-cat="ladies"><td><strong>Rado Copper DD</strong></td><td><span class="tag gold">Premium Ladies</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Ladies premium</td></tr>
+    <tr data-cat="premium ladies"><td><strong>Swish Ladies / Ladies DD</strong></td><td><span class="tag gold">Premium</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Premium ladies gift</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M036</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M052 Ladies</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M081 Ladies DD</strong></td><td><span class="tag green">Ladies DD</span></td><td>Rs 575–675</td><td>Rs 1,150–1,350</td><td>Rs 575–675</td><td>Ladies daily</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M081 Gents DD</strong></td><td><span class="tag blue">Gents DD</span></td><td>Rs 575–675</td><td>Rs 1,150–1,350</td><td>Rs 575–675</td><td>Gents daily wear</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M87 Ladies DD</strong></td><td><span class="tag green">Ladies DD</span></td><td>Rs 950</td><td>Rs 1,900</td><td>Rs 950</td><td>Premium ladies</td></tr>
+    <tr data-cat="premium"><td><strong>R15 Gents (2 variants)</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Executive, gift</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M006 Square</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Style-conscious buyers</td></tr>
+    <tr data-cat="premium"><td><strong>Swish Gents (2 variants)</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Executive, gift</td></tr>
+    <tr data-cat="premium"><td><strong>Rolex Heavy Chain (2 variants)</strong></td><td><span class="tag gold">⭐ Premium Top</span></td><td>Rs 1,200</td><td>Rs 2,400</td><td>Rs 1,200</td><td>High-end male buyers</td></tr>
+    <tr data-cat="premium"><td><strong>Swish Heavy (2 variants)</strong></td><td><span class="tag gold">Premium Heavy</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Heavy chain lovers</td></tr>
+    <tr data-cat="premium"><td><strong>Citizen</strong></td><td><span class="tag red">⭐ Top Tier</span></td><td>Rs 1,300</td><td>Rs 2,600</td><td>Rs 1,300</td><td>Premium buyers</td></tr>
+    <tr data-cat="premium"><td><strong>Binbond / Binbond DD</strong></td><td><span class="tag gold">Premium Gents</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Premium gents</td></tr>
+    <tr data-cat="premium"><td><strong>Miracle Square Chain / F Chain</strong></td><td><span class="tag blue">Gents Chain</span></td><td>Rs 850</td><td>Rs 1,700</td><td>Rs 850</td><td>Chain watch lovers</td></tr>
+    <tr data-cat="premium"><td><strong>Crono Chain</strong></td><td><span class="tag gold">Premium Chrono</span></td><td>Rs 1,100</td><td>Rs 2,200</td><td>Rs 1,100</td><td>Premium male gift</td></tr>
+    <tr data-cat="premium"><td><strong>Hublot</strong></td><td><span class="tag red">⭐ Top Tier</span></td><td>Rs 1,300</td><td>Rs 2,600</td><td>Rs 1,300</td><td>Premium buyers</td></tr>
+    <tr data-cat="premium"><td><strong>Rado R70</strong></td><td><span class="tag gold">Premium</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Premium look budget</td></tr>
+    <tr data-cat="premium"><td><strong>Rolex R86</strong></td><td><span class="tag gold">Premium</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Luxury look buyers</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle M55 Bangle</strong></td><td><span class="tag green">Bangle</span></td><td>Rs 800</td><td>Rs 1,600</td><td>Rs 800</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle Couper DD</strong></td><td><span class="tag blue">Gents DD</span></td><td>Rs 675</td><td>Rs 1,350</td><td>Rs 675</td><td>Gents daily</td></tr>
+    <tr data-cat="premium"><td><strong>NF Fancy Chain</strong></td><td><span class="tag gold">Premium Chain</span></td><td>Rs 800</td><td>Rs 1,600</td><td>Rs 800</td><td>Chain lovers</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M039</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 875</td><td>Rs 1,750</td><td>Rs 875</td><td>Smart look</td></tr>
+    <tr data-cat="miracle"><td><strong>Miracle M032</strong></td><td><span class="tag blue">Gents</span></td><td>Rs 575</td><td>Rs 1,150</td><td>Rs 575</td><td>Budget gents</td></tr>
+    <tr data-cat="ladies couple"><td><strong>Orvin Bangle (9 variants!)</strong></td><td><span class="tag green">⭐ Bangle Range</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Premium ladies, gift</td></tr>
+    <tr data-cat="miracle ladies"><td><strong>Miracle Fancy Chain</strong></td><td><span class="tag green">Ladies Chain</span></td><td>Rs 875</td><td>Rs 1,750</td><td>Rs 875</td><td>Ladies premium</td></tr>
+    <tr data-cat="ladies"><td><strong>NF N02 Ladies</strong></td><td><span class="tag green">Ladies</span></td><td>Rs 900</td><td>Rs 1,800</td><td>Rs 900</td><td>Ladies fashion</td></tr>
+    <tr data-cat="miracle"><td><strong>MR Colour LB</strong></td><td><span class="tag orange">Colourful</span></td><td>Rs 500</td><td>Rs 1,000</td><td>Rs 500</td><td>Youth, colourful</td></tr>
+    <tr data-cat="digital"><td><strong>Lasika Digital (10 variants!)</strong></td><td><span class="tag orange">⭐ Sport Digital</span></td><td>Rs 325</td><td>Rs 650</td><td>Rs 325</td><td>Students, outdoor</td></tr>
+    <tr data-cat="digital"><td><strong>Lasika Big Smart Digital</strong></td><td><span class="tag orange">Sport</span></td><td>Rs 350</td><td>Rs 700</td><td>Rs 350</td><td>Sports youth</td></tr>
+    <tr data-cat="digital"><td><strong>ITAI Digital (9 variants!)</strong></td><td><span class="tag orange">⭐ Sport Digital</span></td><td>Rs 300</td><td>Rs 600</td><td>Rs 300</td><td>Students, youth</td></tr>
+    <tr data-cat="digital"><td><strong>Dash Digital (2 variants)</strong></td><td><span class="tag orange">Digital</span></td><td>Rs 300</td><td>Rs 600</td><td>Rs 300</td><td>Budget digital</td></tr>
+    <tr data-cat="digital"><td><strong>Loose Digital (2 variants)</strong></td><td><span class="tag orange">Budget Digital</span></td><td>Rs 160</td><td>Rs 320</td><td>Rs 160</td><td>Budget buyers</td></tr>
+    <tr data-cat="digital"><td><strong>Colour Box Medium (3 variants)</strong></td><td><span class="tag orange">Kids/Youth</span></td><td>Rs 250</td><td>Rs 500</td><td>Rs 250</td><td>Kids, students</td></tr>
+    <tr data-cat="couple acc"><td><strong>Coach Box Set</strong></td><td><span class="tag green">Gift Set</span></td><td>Rs 600</td><td>Rs 1,200</td><td>Rs 600</td><td>Gift buyers</td></tr>
+    <tr data-cat="couple acc"><td><strong>MK Box Set</strong></td><td><span class="tag green">Gift Set</span></td><td>Rs 600</td><td>Rs 1,200</td><td>Rs 600</td><td>Gift buyers</td></tr>
+    <tr data-cat="acc"><td><strong>Leather Folding Box</strong></td><td><span class="tag">Accessory</span></td><td>Rs 200</td><td>Rs 400</td><td>Rs 200</td><td>Display/gifting</td></tr>
+    <tr data-cat="acc"><td><strong>Paper Love Box</strong></td><td><span class="tag">Accessory</span></td><td>Rs 275</td><td>Rs 550</td><td>Rs 275</td><td>Gift wrapping</td></tr>
+    <tr data-cat="acc"><td><strong>Chain Cutter Tool</strong></td><td><span class="tag">Accessory</span></td><td>Rs 275</td><td>Rs 550</td><td>Rs 275</td><td>Repair tool, upsell</td></tr>
+    <tr data-cat="acc"><td><strong>Display Stands (Single/Double/Rotate)</strong></td><td><span class="tag">Display</span></td><td>Rs 60–800</td><td>Rs 120–1,600</td><td>60–800</td><td>Shop display</td></tr>
+    <tr data-cat="couple acc"><td><strong>Miracle Box Bag Set</strong></td><td><span class="tag green">⭐ Gift Set</span></td><td>Rs 1,000</td><td>Rs 2,000</td><td>Rs 1,000</td><td>Premium gift buyers</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════ AUDIENCE ══════════════════════════ -->
+<div id="audience" class="section">
+  <div class="card"><h3>🎯 4 Buyer Segments for Nepal</h3>
+    <table>
+      <tr><th>Segment</th><th>Who They Are</th><th>Budget</th><th>Best Products</th><th>How to Reach</th></tr>
+      <tr><td><strong>A — Young Professionals</strong><br><span class="tag blue">22–35</span></td><td>Office-goers in KTM/Bhaktapur/Lalitpur. Want smart looks on a budget.</td><td>Rs 1,500–2,500</td><td>Miracle M01/M02, Swish Gents, Binbond, Crono, Citizen, R15</td><td>Facebook feed, 8–10 PM weekday posts</td></tr>
+      <tr><td><strong>B — College Students</strong><br><span class="tag blue">18–24</span></td><td>Trend-driven, price-conscious. Love colourful sporty styles. Reels audience.</td><td>Rs 500–1,200</td><td>Lasika Digital (10 variants!), ITAI (9 variants!), PU Sport, Colour Box, Apple LB</td><td>Instagram Reels, Facebook video ads</td></tr>
+      <tr><td><strong>C — Gift Buyers</strong><br><span class="tag gold">25–45</span></td><td>⭐ Buying for spouse/partner/parent. HIGHEST conversion. Will pay premium for packaging.</td><td>Rs 2,000–5,000</td><td>Omega/Rolex couple sets, Orvin Bangle sets, Miracle Box Bag Set, Coach/MK Box Sets</td><td>Festival campaigns, gift ad copy, couple content</td></tr>
+      <tr><td><strong>D — Women</strong><br><span class="tag blue">20–40</span></td><td>Want bangle-style, stone-set, rose gold. Share in women's FB groups.</td><td>Rs 900–2,500</td><td>Orvin Bangle (9!), MK Bangle (6!), Miracle Open Bangle, Rolex Bangle, Swish Ladies, NF N02</td><td>Women's FB groups, Instagram Reels, Tihar/Dashain</td></tr>
+    </table>
+  </div>
+  <div class="alert warn"><strong>💡 Hidden Goldmine:</strong> You have 9 variants of Orvin Bangle and 6 variants of MK Bangle — that is a full <em>bangle collection</em>. Market it as "Nepal's largest ladies bangle watch collection" — show all variants in one Reel. This alone could become your #1 ladies seller.</div>
+</div>
+
+<!-- ══════════════════════════ ADS FIX ══════════════════════════ -->
+<div id="ads" class="section">
+  <div class="alert danger"><strong>🚫 STOP Advantage Plus NOW.</strong> It is built for large brands with millions of pixel events. You have near-zero data. It is burning your budget on curious scrollers, NOT Nepali buyers ready to spend.</div>
+  <div class="card"><h3>⚙️ Exact New Facebook Ad Setup</h3>
+    <table>
+      <tr><th>Setting</th><th style="color:#FFCCCC">OLD (Wrong)</th><th style="color:#CCFFCC">NEW (Correct)</th></tr>
+      <tr><td><strong>Objective</strong></td><td>Leads / Advantage+</td><td><strong>MESSAGES → WhatsApp</strong></td></tr>
+      <tr><td><strong>Audience</strong></td><td>Auto</td><td>MANUAL targeting only</td></tr>
+      <tr><td><strong>Location</strong></td><td>All Nepal</td><td>Bagmati Province + Gandaki Province</td></tr>
+      <tr><td><strong>Age</strong></td><td>Unknown</td><td>18–45</td></tr>
+      <tr><td><strong>Interests</strong></td><td>None</td><td>Fashion, Jewellery, Online Shopping, Gifts, Watches, Birthday gifts</td></tr>
+      <tr><td><strong>Budget</strong></td><td>Lump sum $35</td><td>Rs 200–300/day × 7 days. Pause if no messages in 3 days.</td></tr>
+      <tr><td><strong>Format</strong></td><td>Static image</td><td>Short video 10–30 sec OR carousel 3–5 products</td></tr>
+      <tr><td><strong>CTA Button</strong></td><td>Learn More</td><td>Send WhatsApp Message (opens WA directly)</td></tr>
+      <tr><td><strong>Language</strong></td><td>English</td><td>NEPALI headline + first line</td></tr>
+      <tr><td><strong>Run separate campaigns for</strong></td><td>One campaign</td><td>Campaign 1: Women only (bangles) | Campaign 2: Men only (chain/gents)</td></tr>
+    </table>
+  </div>
+  <div class="alert warn"><strong>🚫 On Buying Followers:</strong> Fake followers destroy organic reach. Facebook shows posts to a % of your followers — bots don't engage, so Facebook marks your content as poor and throttles it. Run "Page Follow" ads at Rs 100/day for real Nepali buyers instead.</div>
+</div>
+
+<!-- ══════════════════════════ CALENDAR ══════════════════════════ -->
+<div id="calendar" class="section">
+  <div class="alert info"><strong>Rule:</strong> Minimum 5 posts/week. Mix types. Never only product photos. Your existing MP4 videos are GOLD — use them as Reels immediately.</div>
+  <div class="card"><h3>📅 Weekly Content Calendar</h3>
+    <div class="cal-grid">
+      <div class="cal-day"><div class="dn">Monday</div><div class="ct">🕐 Product Feature</div><div class="cd">One watch spotlight. Nepali caption. Model name + price + WA CTA.</div></div>
+      <div class="cal-day"><div class="dn">Tuesday</div><div class="ct">🎬 Video Reel</div><div class="cd">Use existing MP4 watch videos. Nepali text overlay + trending music. 15–30 sec.</div></div>
+      <div class="cal-day"><div class="dn">Wednesday</div><div class="ct">⭐ Social Proof</div><div class="cd">Customer photo or message screenshot. "Happy customer from Bhaktapur!"</div></div>
+      <div class="cal-day"><div class="dn">Thursday</div><div class="ct">📚 Value/Trust Post</div><div class="cd">"How to pick the right watch" or "Why our couple sets are the best gift." Builds authority.</div></div>
+      <div class="cal-day"><div class="dn">Friday</div><div class="ct">🔥 Weekend Deal</div><div class="cd">"First 5 orders: free gift wrapping!" Urgency. Stock limited language.</div></div>
+      <div class="cal-day"><div class="dn">Saturday</div><div class="ct">💑 Couple/Gift</div><div class="cd">"Maya garnelai manchha — watch gift gara!" Feature Orvin/Omega couple sets.</div></div>
+      <div class="cal-day"><div class="dn">Sunday</div><div class="ct">🏪 Behind Scenes</div><div class="cd">Show stock variety, packing orders. Builds real authenticity and trust.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ SEASONAL ══════════════════════════ -->
+<div id="seasonal" class="section">
+  <div class="alert ok"><strong>Key:</strong> 60–70% of gift purchases happen in 2 weeks around Dashain, Tihar, Valentine's. Plan stock + ad spend 3 weeks before each event.</div>
+  <div class="card"><h3>🎉 Nepal Marketing Calendar</h3>
+    <table>
+      <tr><th>Occasion</th><th>Why It Matters</th><th>Action</th><th>Best Products</th></tr>
+      <tr style="background:#FFF3E0"><td><strong>Dashain</strong> (Asoj/Kartik)</td><td>Biggest festival. Highest sales of the year. Families gift elders.</td><td>3× ad budget, 2-week campaign. Gents gift watches focus.</td><td>Miracle M01, Swish Gents, R15, Rolex Heavy Chain, Citizen</td></tr>
+      <tr style="background:#FFF3E0"><td><strong>Tihar</strong> (Kartik)</td><td>Bhai Tika — sisters gift brothers. 2nd biggest opportunity.</td><td>"Bhai lai Tihar gift!" Sister-focused ads targeting women.</td><td>Gents chain watches, Miracle M02, Binbond DD</td></tr>
+      <tr><td><strong>Valentine's Day</strong> (Falgun 1)</td><td>Young couples. Couple sets = perfect product. Premium pricing OK.</td><td>2-week campaign. Couple sets + gift boxes. Rs 3,500–5,000 pairs.</td><td>Omega couple box, Miracle Box Bag Set, Orvin Bangle sets</td></tr>
+      <tr><td><strong>Nepali New Year</strong> (Baishakh 1)</td><td>"Naya barsa, naya ghadi" mindset. Gift to self or family.</td><td>Flash discount: first 20 buyers get Rs 200 off.</td><td>All — promote new arrivals and seasonal collection</td></tr>
+      <tr><td><strong>Mother's Day</strong></td><td>Growing in Nepal. Ladies bangle watches are perfect gifts.</td><td>"Aama lai gift gara" campaign. Feature bangle sets.</td><td>Orvin Bangle (9 variants!), MK Bangle (6!), Rolex Bangle</td></tr>
+      <tr><td><strong>Birthdays (ongoing)</strong></td><td>Year-round. Ask buyers to tag friends' upcoming birthdays.</td><td>"Upcoming birthday? We deliver same day in Bhaktapur!"</td><td>All — offer free gift wrap with any order Rs 1,500+</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════ WHATSAPP ══════════════════════════ -->
+<div id="whatsapp" class="section">
+  <div class="alert ok"><strong>⚡ Speed Rule:</strong> Reply in under 5 minutes → 60% chance of sale. After 1 hour → 80% are gone. Set WA Business notifications to MAX.</div>
+  <div class="g2">
+    <div class="card"><h3>📱 WhatsApp Business Setup</h3>
+      <ul class="cl">
+        <li><input type="checkbox" id="w1"><label for="w1">Download "WhatsApp Business" app (free)</label></li>
+        <li><input type="checkbox" id="w2"><label for="w2">Business Name: <strong>SS Collection Watches</strong></label></li>
+        <li><input type="checkbox" id="w3"><label for="w3">Category: Shopping & Retail | Location: Bhaktapur</label></li>
+        <li><input type="checkbox" id="w4"><label for="w4">Add best product photo as profile picture</label></li>
+        <li><input type="checkbox" id="w5"><label for="w5">Set up product catalogue — top 10 watches with prices</label></li>
+        <li><input type="checkbox" id="w6"><label for="w6">Enable away message (use template below)</label></li>
+        <li><input type="checkbox" id="w7"><label for="w7">Enable greeting message (use template below)</label></li>
+        <li><input type="checkbox" id="w8"><label for="w8">Set opening hours in profile</label></li>
+        <li><input type="checkbox" id="w9"><label for="w9">Add WA link to all posts, bio, and ad CTAs</label></li>
+      </ul>
+    </div>
+    <div class="card"><h3>💬 6-Step Sales Conversation</h3>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-t">Step 1 — Greet within 5 min</div><div class="tl-d">"Namaste! SS Collection ma swagat cha. Hajurlai kun watch chai?"</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 2 — Qualify</div><div class="tl-d">Ladies/gents/couple? Budget? For self or gift? This narrows to 2–3 products.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 3 — Show 2–3 options only</div><div class="tl-d">Send photos with prices. More than 3 = buyer confusion = no sale.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 4 — Handle objection</div><div class="tl-d">If "mahango cha": "Bazarma Rs 4,000 ko watch — hami direct import, Rs 1,900 matra."</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-t">Step 5 — Urgency</div><div class="tl-d">"Yo model last 3 piece cha. Aaja order garnus?"</div></div>
+        <div class="tl-item"><div class="tl-dot green"></div><div class="tl-t">Step 6 — Easy payment + close</div><div class="tl-d">eSewa / Khalti / bank / cash on delivery — their choice. Then confirm address.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><h3>💬 Copy-Paste Auto-Reply Templates</h3>
+    <div class="post"><div class="plabel">Away Message</div>
+      <pre>Namaste! SS Collection ma swagat chha 🙏
+
+Aapnako message prapta bhayo. 1-2 ghantama response garnechha.
+
+Hamro collection:
+• Gents watches: Rs 900 – Rs 2,600
+• Ladies/Bangle: Rs 550 – Rs 2,000
+• Couple sets: Rs 2,000+ (gift box sanga)
+• Sport/Digital: Rs 500 – Rs 700
+
+FREE delivery | Cash on Delivery available!
+
+Hajurlai kun type chahinchha?</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+    <div class="post"><div class="plabel">First Contact Greeting</div>
+      <pre>Namaste! SS Collection ma swagat chha ⌚
+
+Hajurlai kun watch chai pareko — ladies, gents, ki couple set?
+
+Hamro 55+ products chhan — Rs 500 dekhi Rs 2,600 samma.
+
+Hajurko budget ra preference bhane anusaar
+best option suggest gardinchhu! 😊
+
+FREE delivery Kathmandu valley ma!</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ POST TEMPLATES ══════════════════════════ -->
+<div id="posts" class="section">
+  <div class="alert info"><strong>📋 Click Copy → Paste into Facebook → Replace [YOUR NUMBER] → Post.</strong> All captions are in Nepali for maximum local engagement.</div>
+  <div class="card"><h3>✍️ Ready-to-Post Facebook Captions</h3>
+    <div class="post"><div class="plabel">Post 1 — Couple Set (HIGHEST PRIORITY)</div>
+      <pre>Couple haru ko lagi perfect gift! 💑⌚
+
+Miracle Couple Watch Set — Rs 2,000 matra!
+✅ Gents + Ladies — ek set ma dui vota
+✅ Premium design | Water resistant
+✅ Gift box sanga FREE
+✅ FREE delivery Kathmandu valley
+
+50+ couples le already linu bhaeko!
+
+WhatsApp gara: [YOUR NUMBER]
+Stock limited — aaja nai order garnus! ⏰
+
+#coupleset #watchnepal #घडी #bhaktapur #sscollection</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+    <div class="post"><div class="plabel">Post 2 — Orvin Bangle Collection (9 variants = unique angle)</div>
+      <pre>Nepal ma sabai bhandaa thulo bangle watch collection! 💎
+
+Orvin Bangle Watch — Rs 2,000
+✅ 9 different designs — sab rang, sab style!
+✅ Stone setting, premium look
+✅ Gents Rs 15,000 ko watch jasto dekhcha
+✅ Gift box FREE
+
+Birthday, anniversary, Dashain — perfect gift!
+
+WhatsApp: [YOUR NUMBER]
+FREE delivery | Cash on Delivery available!
+
+#banglewatchnepal #ladieswatch #घडी #sscollection</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+    <div class="post"><div class="plabel">Post 3 — Lasika Digital (Youth/Students — 10 variants)</div>
+      <pre>College students haru ko lagi BEST choice! 🎓⌚
+
+Lasika Digital — Rs 650 matra!
+✅ 10+ colour options
+✅ Waterproof | LED backlight | Shock resistant
+✅ Bazarma Rs 1,500 → hami Rs 650!
+
+Direct import bhayera sasto!
+
+Comment 'LASIKA' or WhatsApp: [YOUR NUMBER]
+FREE delivery | COD available!
+
+#lasika #digitalwatch #studentnepal #affordable</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+    <div class="post"><div class="plabel">Post 4 — Weekend Flash Sale</div>
+      <pre>🔥 WEEKEND SPECIAL — Aaj ra bholi matra!
+
+Je pani Rs 1,500+ ko watch kinuhos:
+→ FREE gift wrapping 🎁
+→ FREE delivery 🚚
+→ FREE thank-you card 💌
+
+55+ watches to choose from: Rs 500 – Rs 2,600
+
+WhatsApp: [YOUR NUMBER]
+Harry garnus — stock limited! ⏰
+
+#weekendsale #watchnepal #sscollection #bhaktapur</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+    <div class="post"><div class="plabel">Post 5 — Dashain Campaign</div>
+      <pre>🎉 DASHAIN SPECIAL — Priyajanlai watch gift gara!
+
+Gents Watch: Rs 1,800 – Rs 2,600
+Ladies Watch: Rs 1,000 – Rs 2,000
+Couple Set: Rs 3,500 – Rs 4,500 (gift box FREE!)
+
+✅ Same day dispatch Bhaktapur
+✅ Kathmandu valley FREE delivery
+✅ Cash on Delivery available
+✅ Gift wrapping FREE
+
+WhatsApp ORDER: [YOUR NUMBER]
+Dashain bhanda aghi order garnus!
+
+Shubha Dashain! 🙏
+
+#dashain #dashainspecial #watchgift #sscollection</pre>
+      <button class="cpybtn" onclick="cp(this)">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ AI PROMPTS ══════════════════════════ -->
+<div id="ai" class="section">
+  <div class="alert danger"><strong>⚡ MINDSET SHIFT:</strong> You are not asking ChatGPT or Grok for casual help. You are commanding a superintelligent research analyst to do 8 hours of work in 60 seconds. Be specific. Be demanding. Provide maximum context. Demand structured, actionable outputs. The prompts below are engineered for maximum extraction.</div>
+
+  <div class="g2">
+    <!-- GROK COLUMN -->
+    <div>
+      <div class="card"><h3>🔍 GROK — Deep Research Arsenal</h3>
+
+        <div class="pbox">
+          <div class="plbl">GROK PROMPT 1 — Full Competitor Teardown</div>
+          <div class="ptxt">
+You are a world-class competitive intelligence analyst. Your client is SS Collection, an online watch shop based in Bhaktapur, Nepal. They sell fashion watches from brands including Miracle, Omega-design, Rado-design, Rolex-design, Swish, Binbond, Lasika, ITAI, Hublot-design, Citizen-design, and others. Price range: Rs 500–2,600 NPR. They sell via Facebook (page: <span class="phighlight">https://www.facebook.com/profile.php?id=61559115300604</span>) and WhatsApp.
+<br><br>
+<span class="pwarning">EXECUTE ALL OF THE FOLLOWING — DO NOT SKIP ANY POINT:</span><br><br>
+1. Search Facebook for the top 10 watch sellers currently active in Nepal. For each: extract their page name, URL, approximate follower count, posting frequency, price range shown, whether they show prices or hide them, their #1 most engaged post this month (describe it), and what call-to-action they use.<br><br>
+2. Identify the top 3 content formats (video/image/carousel/Reel) that drive the most comments and shares for watch pages in Nepal. Give me actual examples with post descriptions.<br><br>
+3. Find the exact Facebook ad library entries for watch sellers targeting Nepal. What headlines, copy styles, and offers are running RIGHT NOW? List at least 5 active ads with full description.<br><br>
+4. Identify any Nepal watch seller who is successfully converting to sales (not just likes). What is their conversion mechanism — do they use WhatsApp, Messenger, DM, or phone call?<br><br>
+5. What GAPS exist in the Nepal watch market that SS Collection can own? What types of watches, price points, or customer segments are currently underserved?<br><br>
+<span class="phighlight">FORMAT: Structured report with headers, numbered findings, and a final "Top 5 Recommendations" section. Be brutally specific — no vague platitudes.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">GROK PROMPT 2 — Nepal Market Deep Intelligence</div>
+          <div class="ptxt">
+You are a market research expert specializing in South Asian consumer markets. I need a comprehensive intelligence report on the Nepal watch market in 2025–2026. This is for SS Collection, a Bhaktapur-based online watch seller with 55+ SKUs ranging from Rs 500–2,600.
+<br><br>
+<span class="pwarning">RESEARCH AND ANSWER ALL OF THE FOLLOWING — BE EXHAUSTIVE:</span><br><br>
+1. What watch styles are trending RIGHT NOW in Nepal, India, and Bangladesh? Break down by: (a) gents watches, (b) ladies/bangle watches, (c) digital/sport watches, (d) couple/gift sets. Include specific design characteristics (dial colour, strap type, brand name on dial).<br><br>
+2. What are the most-searched watch terms on Google Nepal in 2025? List the top 20 keywords with estimated search volumes. Which terms signal buying intent vs. window shopping?<br><br>
+3. What is the price psychology in Nepal for watches? At what price points do buyers hesitate? What words or framings ("direct import", "brand quality") reduce price resistance most effectively?<br><br>
+4. What are the most effective hashtags for watch sellers on Facebook and Instagram in Nepal right now? Give me 40 hashtags broken into: Nepali language, English Nepal, General fashion, and Gift/occasion tags.<br><br>
+5. What is the role of festivals in Nepal watch buying? Give me month-by-month buying pattern data. When are the exact peak windows to run ads?<br><br>
+6. What social media platforms do Nepali buyers aged 18–45 use most, and at what times of day are they most active?<br><br>
+<span class="phighlight">FORMAT: Executive intelligence report. Include data, percentages where available, and a "Quick Win Actions" section at the end for SS Collection specifically.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">GROK PROMPT 3 — Facebook Ad Creative Intelligence</div>
+          <div class="ptxt">
+You are a Facebook ads performance specialist with deep expertise in South Asian e-commerce markets. My client SS Collection (watches, Nepal, Rs 500–2,600) has spent $35 on Facebook ads, generated 100 leads using Advantage Plus audience, but converted ZERO to paying customers.
+<br><br>
+<span class="pwarning">DO THE FOLLOWING — NO GENERIC ADVICE:</span><br><br>
+1. Diagnose exactly why Advantage Plus failed for this use case. What data signals does Facebook need before Advantage Plus works, and why a new Nepal page doesn't have them?<br><br>
+2. Design the exact manual targeting setup for 3 separate ad campaigns: (A) Ladies bangle watches, (B) Gents premium watches, (C) Couple/gift sets. For each: location, age, gender, interests, exclusions, and budget recommendation.<br><br>
+3. Write 5 high-converting Facebook ad copy sets for Nepal. Each set must include: (a) Primary text under 125 characters in Nepali, (b) Headline under 40 characters, (c) Description under 30 characters, (d) Recommended image/video description. Make the Nepali feel AUTHENTIC, not Google Translated.<br><br>
+4. What are the top 3 video ad hooks (first 3 seconds) that work best for watch products in South Asian markets? Give specific script examples I can film with just my phone.<br><br>
+5. What is the exact retargeting strategy I should build once I have 500+ page visitors? Design the full funnel: cold → warm → hot audiences with different messages for each.<br><br>
+<span class="phighlight">FORMAT: Tactical playbook. Everything must be copy-paste ready or directly actionable. No theories — only executable tactics.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">GROK PROMPT 4 — Influencer Hunt (Nepal)</div>
+          <div class="ptxt">
+I need a complete influencer outreach strategy for SS Collection, a watch brand in Bhaktapur, Nepal. My budget for influencer marketing is Rs 10,000/month in product cost (I barter free watches worth Rs 675–1,000 each for content).
+<br><br>
+<span class="pwarning">EXECUTE ALL TASKS:</span><br><br>
+1. Search Instagram and TikTok for micro-influencers based in Nepal (Kathmandu, Bhaktapur, Lalitpur, Pokhara) with 3,000–50,000 followers who post about fashion, lifestyle, or gifting. List at least 15 accounts with their username, follower count, engagement rate estimate, and content niche.<br><br>
+2. Which type of Nepal influencer converts BEST for fashion/accessories? (Fashion bloggers vs. lifestyle vloggers vs. student accounts vs. couple accounts.) Rank by conversion potential with reasoning.<br><br>
+3. Write an exact outreach DM template in English + Nepali for my barter proposal. The message must be under 150 words, feel personal (not spammy), and clearly communicate the offer.<br><br>
+4. What should I ask influencers to post? Write an exact brief for: (a) a product Reel, (b) Instagram Stories (3-part), (c) a Facebook video. Include specific hooks, talking points, and mandatory elements.<br><br>
+5. How do I track which influencer drives real sales? Design a simple tracking system using WhatsApp links, discount codes, or other mechanisms available in Nepal.<br><br>
+<span class="phighlight">FORMAT: Complete influencer playbook with all templates copy-paste ready.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+      </div>
+    </div>
+
+    <!-- CHATGPT COLUMN -->
+    <div>
+      <div class="card"><h3>🧠 ChatGPT Pro — Content & Systems Arsenal</h3>
+
+        <div class="pbox">
+          <div class="plbl">CHATGPT PROMPT 1 — Bulk Content Engine (50 Captions)</div>
+          <div class="ptxt">
+You are the world's best Nepali social media copywriter for an e-commerce brand. Your task is to generate a complete 30-day content library for SS Collection, a watch shop in Bhaktapur, Nepal.
+<br><br>
+<span class="pwarning">CONTEXT YOU MUST USE:</span><br>
+- Business: SS Collection, Bhaktapur, Nepal<br>
+- Facebook: https://www.facebook.com/profile.php?id=61559115300604<br>
+- Products: Miracle (M01 Rs1,900 | M02 Rs1,900 | Couple Set Rs2,000 | PU Sport Rs1,350 | Bangle Rs1,800) | Orvin Bangle Rs2,000 (9 variants) | MK Bangle Rs1,000 (6 variants) | Lasika Digital Rs650 (10 variants) | ITAI Digital Rs600 (9 variants) | Rolex Heavy Chain Rs2,400 | Citizen Rs2,600 | Hublot Rs2,600 | Binbond Rs1,800 | Swish Gents Rs2,000 | Nurse Watch Rs550<br>
+- WhatsApp: [replace with actual number]<br>
+- Target audience: Nepali, 18–45, Bagmati Province<br>
+- Tone: Local, warm, urgent, trustworthy. Mix of Nepali script and Romanized Nepali.<br><br>
+<span class="pwarning">GENERATE ALL OF THE FOLLOWING — DO NOT SHORTEN OR SKIP:</span><br><br>
+1. 15 product spotlight captions (one per product, Nepali + English version of each)<br>
+2. 7 social proof / testimonial captions (buyer stories, "50+ happy customers" angles)<br>
+3. 7 festival / seasonal captions (Dashain, Tihar, Valentine's, New Year, Mother's Day, Birthday, Weekend Sale)<br>
+4. 7 educational / value captions ("Why our watches last longer", "How to pick a gift watch", "What makes a quality watch strap")<br>
+5. 7 urgency / scarcity captions ("Last 5 in stock", "Sale ends tonight", "Only 3 left")<br>
+6. 7 couple/gift angle captions (focused on "surprise your partner", "perfect anniversary gift")<br><br>
+For each caption include: [CAPTION TEXT] | [HASHTAGS — 8–12 relevant Nepal hashtags] | [BEST POSTING TIME] | [CONTENT TYPE RECOMMENDATION: video/image/carousel]<br><br>
+<span class="phighlight">FORMAT: Structured table with all 50 captions. Nepali must be authentic, not translated. Avoid generic "buy now" language — every caption must feel human and local.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">CHATGPT PROMPT 2 — Complete WhatsApp Sales System</div>
+          <div class="ptxt">
+You are the world's best sales conversion expert for South Asian e-commerce. Build me a complete WhatsApp sales system for SS Collection, a watch shop in Bhaktapur, Nepal. My current problem: I get Facebook leads but convert ZERO to sales. I need a system that turns every WhatsApp message into a buyer.
+<br><br>
+<span class="pwarning">BUILD ALL OF THE FOLLOWING — BE EXHAUSTIVE AND SPECIFIC:</span><br><br>
+1. CONVERSATION SCRIPTS — Write complete, word-for-word WhatsApp conversation scripts in realistic Nepali-English mix (how real Nepali people text) for ALL of these buyer types:<br>
+   (a) Buyer asking about a gents watch for himself<br>
+   (b) Buyer looking for a ladies watch as a gift<br>
+   (c) Buyer asking about couple watch set for anniversary<br>
+   (d) Buyer who says "Mahango cha" (too expensive)<br>
+   (e) Buyer who says "Sochera bhanchu" (let me think about it) — re-engagement script<br>
+   (f) Buyer who goes silent for 24 hours — follow-up script<br>
+   (g) Buyer who received the watch — upsell and referral script<br><br>
+2. AUTO-REPLY MESSAGES — Write complete WhatsApp Business auto-reply messages for: away message, greeting message, and 3 quick-reply shortcuts.<br><br>
+3. OBJECTION BANK — List every possible objection a Nepali buyer might raise (price, quality, delivery, payment, trust) and write a killer response for each. Minimum 10 objections.<br><br>
+4. FOLLOW-UP SEQUENCE — Design a 5-message follow-up sequence for leads who don't reply. Include: timing of each message, tone, and what offer to make in each message.<br><br>
+5. POST-SALE SYSTEM — What to message after delivery to: (a) get a testimonial/photo, (b) ask for a referral, (c) encourage a repeat purchase within 30 days.<br><br>
+<span class="phighlight">FORMAT: Complete playbook. All conversation scripts must be copy-paste ready. Every message must feel human, not like a bot. Nepali must be authentic romanized Nepali that real people use when texting.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">CHATGPT PROMPT 3 — Full Business Scaling Blueprint</div>
+          <div class="ptxt">
+You are a world-class e-commerce business strategist specializing in scaling small businesses in emerging markets. Your client is SS Collection in Bhaktapur, Nepal — an online watch shop with 55+ products, Facebook presence, and zero sales conversions so far despite running Facebook ads.
+<br><br>
+<span class="pwarning">SITUATION BRIEF:</span><br>
+- Spent $35 on Facebook Advantage Plus → 100 leads → 0 conversions<br>
+- Products: Rs 500–2,600 range, 50% gross margin at 2× markup<br>
+- Location: Bhaktapur, serving Kathmandu valley + shipping nationwide Nepal<br>
+- Has: product photos, videos (MP4), full stock including Miracle, Orvin, MK, Lasika, ITAI, Rolex-design, Citizen-design, Hublot-design<br>
+- No WhatsApp Business, no Instagram, no testimonials yet<br><br>
+<span class="pwarning">DELIVER A FULL BUSINESS SCALING BLUEPRINT INCLUDING:</span><br><br>
+1. A complete 90-day go-to-market plan with specific week-by-week actions, expected outcomes per week, and resource requirements (time + money in NPR)<br><br>
+2. Product bundling and packaging strategy — which products should be bundled together, at what price point, and what to call the bundle (name + tagline in Nepali)<br><br>
+3. A tiered pricing strategy — which products to position as "entry level" (Rs 500–900), "mid-range" (Rs 1,000–1,800), and "premium" (Rs 2,000+). What language and framing to use for each tier.<br><br>
+4. A customer lifetime value strategy — how to turn a one-time Rs 1,500 buyer into a repeat customer who spends Rs 8,000+ over 12 months. Include: what to offer, when to contact them, what discount to give.<br><br>
+5. A 6-month revenue model — if SS Collection follows this plan exactly, what is the realistic monthly revenue trajectory from Month 1 to Month 6? Show the math: leads needed, conversion rate, average order value, ad spend.<br><br>
+6. What is the single highest-leverage thing SS Collection can do this week that will have the biggest impact on sales? Be very specific.<br><br>
+<span class="phighlight">FORMAT: Executive business blueprint with clear sections, tables where useful, and a "Start Here" summary at the top with the 5 most critical actions. Every recommendation must be specific to Nepal, to the Nepali buyer mindset, and to the specific products SS Collection carries.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+
+        <br><br>
+        <div class="pbox">
+          <div class="plbl">CHATGPT PROMPT 4 — Facebook Ad Copy Factory (15 Ad Sets)</div>
+          <div class="ptxt">
+You are a world-class Facebook advertising copywriter who has generated millions in revenue for South Asian e-commerce brands. Write a complete Facebook ad copy arsenal for SS Collection — a watch shop in Bhaktapur, Nepal.
+<br><br>
+<span class="pwarning">CONTEXT:</span><br>
+Objective: WhatsApp Messages (not leads, not traffic)<br>
+Target: Nepali buyers 18–45, Bagmati Province, interests in fashion/shopping/gifts<br>
+Products and prices: Miracle Couple Set Rs2,000 | Lasika Digital Rs650 | ITAI Digital Rs600 | Orvin Bangle Rs2,000 | MK Bangle Rs1,000 | Miracle M01 Gents Rs1,900 | Rolex Heavy Chain Rs2,400 | Binbond Rs1,800 | Swish Gents Rs2,000 | Citizen Rs2,600<br>
+CTA: Always "Send WhatsApp Message" button<br><br>
+<span class="pwarning">WRITE ALL 15 AD SETS — DO NOT SKIP ANY:</span><br><br>
+5 ads targeting GIFT BUYERS (couple sets, anniversary, Dashain, birthday):<br>
+Each must have: Primary text (Nepali, under 125 chars) | Headline (under 40 chars) | Description (under 30 chars) | Video brief (what to film for 15-sec video) | Why it converts<br><br>
+5 ads targeting YOUNG MEN (gents watches, office style, sports watches):<br>
+Same format as above<br><br>
+5 ads targeting WOMEN (bangle watches, ladies fashion, gift for self):<br>
+Same format as above<br><br>
+BONUS: Write 3 retargeting ads for people who visited the page but didn't message — these should feel more personal, create urgency, and offer something new.<br><br>
+<span class="phighlight">FORMAT: Full table with all 18 ad copies. Nepali text must be authentic, punchy, and feel like a local is writing it — NOT a translation. Each ad needs a "conversion reason" — 1 sentence explaining the psychological trigger it uses.</span>
+          </div>
+        </div>
+        <button class="cpybtn" onclick="cpBox(this)">📋 Copy Full Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ 90-DAY PLAN ══════════════════════════ -->
+<div id="plan" class="section">
+  <div class="g2">
+    <div class="card"><h3>📅 Month 1 — Foundation (Days 1–30)</h3>
+      <p style="font-size:11.5px;color:var(--muted);margin-bottom:10px;font-weight:600;">WEEK 1 — Systems</p>
+      <ul class="cl">
+        <li><input type="checkbox" id="a1" onchange="upd()"><label for="a1">Install WhatsApp Business. Set profile, catalogue, auto-replies.</label></li>
+        <li><input type="checkbox" id="a2" onchange="upd()"><label for="a2">Create Instagram: SS Collection. Link to Facebook.</label></li>
+        <li><input type="checkbox" id="a3" onchange="upd()"><label for="a3">Install Meta Business Suite app. Manage both platforms in one place.</label></li>
+        <li><input type="checkbox" id="a4" onchange="upd()"><label for="a4">Run ALL 4 Grok prompts. Save research findings.</label></li>
+        <li><input type="checkbox" id="a5" onchange="upd()"><label for="a5">Run ChatGPT Prompt 1 (50 captions). Save to file.</label></li>
+      </ul>
+      <p style="font-size:11.5px;color:var(--muted);margin:10px 0 8px;font-weight:600;">WEEK 2 — Content Launch</p>
+      <ul class="cl">
+        <li><input type="checkbox" id="a6" onchange="upd()"><label for="a6">Post once daily using calendar system. Nepali captions with price shown.</label></li>
+        <li><input type="checkbox" id="a7" onchange="upd()"><label for="a7">Upload Miracle PU Sport MP4 videos as Instagram Reels.</label></li>
+        <li><input type="checkbox" id="a8" onchange="upd()"><label for="a8">Post 3 Stories/day: product reveal, poll, price.</label></li>
+        <li><input type="checkbox" id="a9" onchange="upd()"><label for="a9">Ask 5 previous buyers for testimonial photo.</label></li>
+      </ul>
+      <p style="font-size:11.5px;color:var(--muted);margin:10px 0 8px;font-weight:600;">WEEK 3 — First Paid Campaign</p>
+      <ul class="cl">
+        <li><input type="checkbox" id="a10" onchange="upd()"><label for="a10">Kill Advantage Plus. New ad: MESSAGES + WhatsApp CTA.</label></li>
+        <li><input type="checkbox" id="a11" onchange="upd()"><label for="a11">Manual: Bagmati Province, 18–45, fashion interests.</label></li>
+        <li><input type="checkbox" id="a12" onchange="upd()"><label for="a12">Rs 200/day × 7 days. Couple set video as creative.</label></li>
+        <li><input type="checkbox" id="a13" onchange="upd()"><label for="a13">Reply EVERY WhatsApp within 5 minutes.</label></li>
+      </ul>
+      <p style="font-size:11.5px;color:var(--muted);margin:10px 0 8px;font-weight:600;">WEEK 4 — Optimize</p>
+      <ul class="cl">
+        <li><input type="checkbox" id="a14" onchange="upd()"><label for="a14">Review top-performing posts. Double down on that format.</label></li>
+        <li><input type="checkbox" id="a15" onchange="upd()"><label for="a15">DM 5 micro-influencers. Offer free watch barter deal.</label></li>
+        <li><input type="checkbox" id="a16" onchange="upd()"><label for="a16">Run ChatGPT Prompt 2 (WhatsApp scripts). Practice daily.</label></li>
+        <li><input type="checkbox" id="a17" onchange="upd()"><label for="a17">Create Orvin Bangle "9 variants" showcase Reel.</label></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📅 Month 2 — Growth (Days 31–60)</h3>
+      <ul class="cl">
+        <li><input type="checkbox" id="b1" onchange="upd()"><label for="b1">Scale ads to Rs 300–400/day if Month 1 had sales.</label></li>
+        <li><input type="checkbox" id="b2" onchange="upd()"><label for="b2">Split campaigns: Women (bangles) + Men (chain/gents).</label></li>
+        <li><input type="checkbox" id="b3" onchange="upd()"><label for="b3">Start "Customer of the Week" post with buyer photo.</label></li>
+        <li><input type="checkbox" id="b4" onchange="upd()"><label for="b4">Launch referral: "Refer a friend, get Rs 200 off."</label></li>
+        <li><input type="checkbox" id="b5" onchange="upd()"><label for="b5">Pin branded price list to top of Facebook page.</label></li>
+        <li><input type="checkbox" id="b6" onchange="upd()"><label for="b6">Set up Facebook Shop — add all 55+ products with prices.</label></li>
+        <li><input type="checkbox" id="b7" onchange="upd()"><label for="b7">Run 3 influencer collabs. Track WA messages per influencer.</label></li>
+        <li><input type="checkbox" id="b8" onchange="upd()"><label for="b8">Run ChatGPT Prompt 3 (Scaling Blueprint). Read and implement.</label></li>
+        <li><input type="checkbox" id="b9" onchange="upd()"><label for="b9">Create Lasika Digital "10 colours" showcase Reel.</label></li>
+        <li><input type="checkbox" id="b10" onchange="upd()"><label for="b10">Collect 10 customer testimonials. Post 2/week.</label></li>
+      </ul>
+      <h3 style="margin-top:18px;">📅 Month 3 — Scale (Days 61–90)</h3>
+      <ul class="cl">
+        <li><input type="checkbox" id="c1" onchange="upd()"><label for="c1">Scale to Rs 500–600/day if 2–3 ad creatives are profitable.</label></li>
+        <li><input type="checkbox" id="c2" onchange="upd()"><label for="c2">Run 48-hour flash sale: "Rs 200 off Rs 1,500+ orders."</label></li>
+        <li><input type="checkbox" id="c3" onchange="upd()"><label for="c3">Run giveaway: "Follow + Share = win free watch."</label></li>
+        <li><input type="checkbox" id="c4" onchange="upd()"><label for="c4">Run ChatGPT Prompt 4 (15 Ad Sets). Launch top 5.</label></li>
+        <li><input type="checkbox" id="c5" onchange="upd()"><label for="c5">If 10+ orders/week, hire part-time WA reply assistant.</label></li>
+        <li><input type="checkbox" id="c6" onchange="upd()"><label for="c6">Review stock. Reorder bestsellers from supplier.</label></li>
+        <li><input type="checkbox" id="c7" onchange="upd()"><label for="c7">Write your own updated plan for the next 90 days.</label></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card"><h3>📊 Live Progress</h3>
+    <div class="pbwrap"><div class="pbl"><span>Month 1 — Foundation (17 tasks)</span><span id="p1t">0%</span></div><div class="pbr"><div class="pbf" id="p1b" style="width:0%"></div></div></div>
+    <div class="pbwrap"><div class="pbl"><span>Month 2 — Growth (10 tasks)</span><span id="p2t">0%</span></div><div class="pbr"><div class="pbf gold" id="p2b" style="width:0%"></div></div></div>
+    <div class="pbwrap"><div class="pbl"><span>Month 3 — Scale (7 tasks)</span><span id="p3t">0%</span></div><div class="pbr"><div class="pbf green" id="p3b" style="width:0%"></div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ BUDGET ══════════════════════════ -->
+<div id="budget" class="section">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-lbl">Monthly Ad Budget</div><div class="kpi-val">Rs 6K</div><div class="kpi-sub">Facebook + IG boosts</div></div>
+    <div class="kpi gold"><div class="kpi-lbl">Influencer Cost</div><div class="kpi-val">Rs 3K</div><div class="kpi-sub">Product barter (3–5 watches)</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Month 3 Revenue</div><div class="kpi-val">Rs 45K+</div><div class="kpi-sub">30+ orders/month target</div></div>
+    <div class="kpi"><div class="kpi-lbl">Gross Margin</div><div class="kpi-val">50%</div><div class="kpi-sub">Rs 22K+ profit/month</div></div>
+  </div>
+
+  <!-- Profit calculator -->
+  <div class="card"><h3>🧮 Profit Calculator</h3>
+    <div class="g2">
+      <div>
+        <div class="calc">
+          <label>Orders per week: <strong id="ord-val">10</strong></label>
+          <input type="range" min="1" max="50" value="10" oninput="calc(this.value)">
+          <label>Average order value: <strong>Rs 1,600</strong> (your mid-range)</label><br><br>
+          <label>Monthly revenue: <span id="rev" style="font-size:20px;font-weight:700;color:var(--mid)">Rs 64,000</span></label><br>
+          <label>Monthly profit (50%): <span class="big" id="profit">Rs 32,000</span></label><br>
+          <label style="color:var(--red)">Minus ad budget: <span id="net" style="font-size:16px;font-weight:700;color:var(--green)">Rs 26,000 net</span></label>
+        </div>
+      </div>
+      <div>
+        <table>
+          <tr><th>Expense</th><th>Monthly</th></tr>
+          <tr><td>Facebook Ads (MESSAGES objective)</td><td><strong>Rs 4,000–6,000</strong></td></tr>
+          <tr><td>Instagram Reel boosts (2–3)</td><td><strong>Rs 1,000–1,500</strong></td></tr>
+          <tr><td>Influencer barter (3–5 watches @ cost)</td><td><strong>Rs 2,500–4,000</strong></td></tr>
+          <tr><td>Monthly giveaway (1 watch)</td><td><strong>Rs 675–950</strong></td></tr>
+          <tr style="background:#E8F8EE"><td><strong>TOTAL SPEND</strong></td><td><strong>Rs 8,000–12,500</strong></td></tr>
+          <tr style="background:#D5F5E3"><td><strong>TARGET REVENUE</strong></td><td><strong>Rs 45,000–80,000</strong></td></tr>
+          <tr style="background:#ABEBC6"><td><strong>NET PROFIT</strong></td><td><strong>Rs 18,000–42,000</strong></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card"><h3>📊 Weekly KPI Targets</h3>
+    <table>
+      <tr><th>Metric</th><th>Current</th><th>Month 1 Target</th><th>Month 3 Target</th></tr>
+      <tr><td>WhatsApp messages/week</td><td>0</td><td>5–10</td><td>20–40</td></tr>
+      <tr><td>Orders/week</td><td>0</td><td>2–5</td><td>8–15</td></tr>
+      <tr><td>Message→order conversion</td><td>0%</td><td>20–30%</td><td>40–55%</td></tr>
+      <tr><td>Cost per WA message</td><td>N/A</td><td>< Rs 80</td><td>< Rs 40</td></tr>
+      <tr><td>Average order value</td><td>N/A</td><td>Rs 1,200</td><td>Rs 1,600</td></tr>
+      <tr><td>Reply time to messages</td><td>Slow</td><td>< 10 min</td><td>< 5 min</td></tr>
+      <tr><td>Real page followers</td><td>Current</td><td>+200</td><td>+1,000</td></tr>
+      <tr><td>Monthly revenue</td><td>Rs 0</td><td>Rs 10,000+</td><td>Rs 45,000+</td></tr>
+    </table>
+  </div>
+  <div class="alert ok" style="font-size:13.5px;"><strong>🏆 The Real Formula:</strong> The difference between Rs 5K/month and Rs 50K/month in Nepal is NOT product quality or ad budget. It is <strong>reply speed</strong> (under 5 minutes), <strong>content consistency</strong> (post every day), and <strong>trust signals</strong> (show real buyers, show your face, show your location). These three things cost zero money and deliver maximum results. Do them daily without exception.</div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+const titles={dash:'Dashboard',products:'All Products (55+)',audience:'Target Audience',ads:'Facebook Ads Fix',calendar:'Content Calendar',seasonal:'Seasonal Campaigns',whatsapp:'WhatsApp System',posts:'Post Templates',ai:'AI Prompt Arsenal',plan:'90-Day Checklist',budget:'Budget & KPIs'};
+function show(id,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');document.getElementById('ptitle').textContent=titles[id]||id;}
+function cp(btn){const pre=btn.previousElementSibling;navigator.clipboard.writeText(pre.textContent.trim()).then(()=>{btn.textContent='✅ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('ok');},2000);});}
+function cpBox(btn){const box=btn.previousElementSibling;const txt=box.querySelectorAll('.ptxt,.phighlight,.pwarning');let out='';box.childNodes.forEach(n=>{if(n.nodeType===3)out+=n.textContent;else if(n.tagName)out+=n.textContent+'\n';});navigator.clipboard.writeText(out.trim()).then(()=>{btn.textContent='✅ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy Full Prompt';btn.classList.remove('ok');},2500);});}
+function filterProd(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('#prod-table tr[data-cat]').forEach(r=>{r.style.display=(cat==='all'||r.dataset.cat.includes(cat))?'':'none';});}
+function upd(){
+  const m1=['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10','a11','a12','a13','a14','a15','a16','a17'];
+  const m2=['b1','b2','b3','b4','b5','b6','b7','b8','b9','b10'];
+  const m3=['c1','c2','c3','c4','c5','c6','c7'];
+  function p(ids){const d=ids.filter(id=>document.getElementById(id)?.checked).length;return Math.round(d/ids.length*100);}
+  const p1=p(m1),p2=p(m2),p3=p(m3);
+  ['p1b','p2b','p3b'].forEach((id,i)=>{document.getElementById(id).style.width=[p1,p2,p3][i]+'%';});
+  ['p1t','p2t','p3t'].forEach((id,i)=>{document.getElementById(id).textContent=[p1,p2,p3][i]+'%';});
+  ['ob1','ob2','ob3'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.style.width=[p1,p2,p3][i]+'%';});
+  ['op1','op2','op3'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=[p1,p2,p3][i]+'%';});
+  document.querySelectorAll('.cl li').forEach(li=>{const cb=li.querySelector('input[type=checkbox]');if(cb)li.classList.toggle('done',cb.checked);});
+}
+function calc(v){
+  document.getElementById('ord-val').textContent=v;
+  const rev=v*4*1600;const profit=rev*0.5;const net=profit-6000;
+  document.getElementById('rev').textContent='Rs '+rev.toLocaleString();
+  document.getElementById('profit').textContent='Rs '+profit.toLocaleString();
+  document.getElementById('net').textContent='Rs '+Math.max(0,net).toLocaleString()+' net';
+}
+</script>
+</body>
+</html>
