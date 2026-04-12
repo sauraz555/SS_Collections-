@@ -1524,7 +1524,7 @@ function renderGallery(filter) {
   // WAR ROOM JS
 function cp(btn){const pre=btn.previousElementSibling;const txt=pre?pre.textContent.trim():'';navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✅ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('ok');},2000);});}
 function cpHt(el){navigator.clipboard.writeText(el.textContent.trim()).then(()=>{el.classList.add('copied');setTimeout(()=>el.classList.remove('copied'),1500);});}
-function cpAdSet(btn){const adset=btn.closest('.adset');const fields=adset.querySelectorAll('.afval');let out='';adset.querySelectorAll('.afield').forEach(f=>{const lbl=f.querySelector('.aflabel');const val=f.querySelector('.afval');if(lbl&&val)out+=lbl.textContent.trim()+'\n'+val.textContent.trim()+'\n\n';}
+function cpAdSet(btn){const adset=btn.closest('.adset');const fields=adset.querySelectorAll('.afval');let out='';adset.querySelectorAll('.afield').forEach(f=>{const lbl=f.querySelector('.aflabel');const val=f.querySelector('.afval');if(lbl&&val)out+=lbl.textContent.trim()+'\n'+val.textContent.trim()+'\n\n';});navigator.clipboard.writeText(out.trim()).then(()=>{btn.textContent='✅ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy All Ad Text';btn.classList.remove('ok');},2000);});}
 </script>
 </body>
 </html>
