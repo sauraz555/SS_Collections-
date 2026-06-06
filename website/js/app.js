@@ -335,3 +335,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') { closeModal(); closeCart(); }
   });
 });
+
+
+// FAQ Accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    // Close all others
+    document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+    
+    // Toggle current
+    if (!isActive) item.classList.add('active');
+  });
+});

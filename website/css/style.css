@@ -17,10 +17,10 @@ ul { list-style: none; }
 :root {
   --bg: #09090b;
   --bg2: #18181b;
-  --primary: #c9a84c;
-  --gold: #d4af37;
-  --gold-light: #f3e5ab;
-  --gold-pale: rgba(212, 175, 55, 0.15);
+  --primary: #dc2626;
+  --gold: #e11d48;
+  --gold-light: #fda4af;
+  --gold-pale: rgba(225, 29, 72, 0.15);
   --text: #f4f4f5;
   --muted: #a1a1aa;
   --border: rgba(255, 255, 255, 0.1);
@@ -559,4 +559,49 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .category-card { height: 240px; }
   .footer-bottom { flex-direction: column; text-align: center; gap: 12px; }
   .cart-drawer { width: 100%; right: -100%; }
+}
+
+
+/* ===== WHATSAPP FLOAT ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 100px;
+  right: 32px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  animation: pulse-wa 2s infinite;
+}
+.whatsapp-float:hover {
+  background-color: #128c7e;
+  color: #fff;
+  transform: translateY(-5px);
+}
+@keyframes pulse-wa {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* ===== FAQ SECTION ===== */
+.faq-section { background: var(--bg); }
+.faq-container { max-width: 800px; margin: 0 auto; }
+.faq-item { background: var(--glass-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; overflow: hidden; transition: all 0.3s; }
+.faq-question { width: 100%; text-align: left; padding: 20px 24px; font-size: 1.1rem; font-weight: 600; color: #fff; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.faq-question i { color: var(--gold); transition: transform 0.3s; }
+.faq-item.active .faq-question i { transform: rotate(180deg); }
+.faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--muted); }
+.faq-item.active .faq-answer { padding: 0 24px 20px; max-height: 500px; }
+
+@media (max-width: 768px) {
+  .whatsapp-float { bottom: 90px; right: 20px; width: 50px; height: 50px; font-size: 1.8rem; }
 }
