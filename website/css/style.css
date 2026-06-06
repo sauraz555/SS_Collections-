@@ -538,9 +538,10 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .products-grid.list-view .product-card { grid-template-columns: 140px 1fr; }
   .products-grid.list-view .card-img-wrap { min-height: 180px; }
   .hero h1 { font-size: 3rem; text-align: center; }
-  .hero p { text-align: center; }
+  .hero p { text-align: center; font-size: 0.95rem; }
   .hero .subtitle { margin: 0 auto 24px; display: block; width: max-content; }
-  .hero-btns { justify-content: center; }
+  .hero-btns { justify-content: center; flex-direction: column; width: 100%; }
+  .hero-btns .btn { width: 100%; margin-bottom: 10px; }
 }
 
 @media (max-width: 540px) {
@@ -657,10 +658,23 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .whatsapp-wrapper .whatsapp-float {
     width: 50px;
     height: 50px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   .wa-tooltip {
-    font-size: 0.8rem;
-    padding: 6px 12px;
+    display: none; /* Hide tooltip on smaller mobile screens to save space */
   }
+}
+@media (max-width: 540px) {
+  .hero-stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-stat {
+    width: 100%;
+  }
+  .contact-info-card { padding: 24px; }
+  .contact-form-card { padding: 24px; }
+  .faq-question { font-size: 1rem; padding: 16px; }
+  .faq-answer { padding: 0 16px; font-size: 0.9rem; }
+  .faq-item.active .faq-answer { padding: 0 16px 16px; }
 }
