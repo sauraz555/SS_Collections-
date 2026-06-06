@@ -47,8 +47,8 @@ ul { list-style: none; }
 
 /* ===== TYPOGRAPHY ===== */
 h1,h2,h3,h4,h5 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
-h2 { font-size: clamp(2rem, 3vw, 3rem); }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; letter-spacing: -1px; }
+h2 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.2; letter-spacing: -0.5px; }
 h3 { font-size: 1.2rem; }
 
 /* ===== UTILITIES ===== */
@@ -63,11 +63,11 @@ h3 { font-size: 1.2rem; }
 .text-muted { color: var(--muted); }
 
 /* ===== BUTTONS ===== */
-.btn { 
+.btn { min-height: 44px;  
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; 
   padding: 14px 32px; border-radius: 30px; font-weight: 600; font-size: 0.95rem; 
   transition: all var(--transition); white-space: nowrap; letter-spacing: 0.5px;
-}
+ }
 .btn-primary { 
   background: linear-gradient(135deg, var(--gold), #b8963e); 
   color: #000; 

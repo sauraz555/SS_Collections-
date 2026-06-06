@@ -158,7 +158,7 @@ function openModal(productId) {
   modal.querySelector('.modal-body').innerHTML = `
     <div class="modal-gallery">
       <div class="modal-img-wrap">
-        <img id="modalMainImg" src="${IMG_BASE}${p.images[0]}" alt="${p.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'300\\' height=\\'300\\'><rect width=\\'300\\' height=\\'300\\' fill=\\'%23f5efe6\\'/></svg>'">
+        <img id="modalMainImg" src="${IMG_BASE}${p.images[0]}" alt="${p.name} - Premium Watch Nepal" onerror="this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'300\\' height=\\'300\\'><rect width=\\'300\\' height=\\'300\\' fill=\\'%23f5efe6\\'/></svg>'">
         ${navHTML}
       </div>
       ${thumbsHTML}
@@ -242,7 +242,7 @@ function createProductCard(p) {
   return `
     <div class="product-card" data-id="${p.id}">
       <div class="card-img-wrap" onclick="openModal(${p.id})">
-        <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'><i class=\\'fas fa-clock\\'></i></div>'">
+        <img src="${imgSrc}" alt="${p.name} - Premium Watch Nepal" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'><i class=\\'fas fa-clock\\'></i></div>'">
         <div class="card-overlay">
           <button class="btn-quickview"><i class="fas fa-eye"></i> Quick View</button>
         </div>
