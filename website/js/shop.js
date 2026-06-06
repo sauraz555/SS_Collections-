@@ -106,14 +106,14 @@ function buildFilters() {
   document.getElementById('priceMin')?.addEventListener('input', () => {
     const min = parseInt(document.getElementById('priceMin').value);
     const max = parseInt(document.getElementById('priceMax').value);
-    activeFilteNPRminPrice = Math.min(min, max);
+    activeFilters.minPrice = Math.min(min, max);
     updatePriceDisplay();
     applyFilters();
   });
   document.getElementById('priceMax')?.addEventListener('input', () => {
     const min = parseInt(document.getElementById('priceMin').value);
     const max = parseInt(document.getElementById('priceMax').value);
-    activeFilteNPRmaxPrice = Math.max(min, max);
+    activeFilters.maxPrice = Math.max(min, max);
     updatePriceDisplay();
     applyFilters();
   });
@@ -124,11 +124,11 @@ function onFilterChange(cb) {
   const type = cb.dataset.type;
   const val = cb.value;
   if (type === 'category') {
-    if (cb.checked) activeFilteNPRcategories.push(val);
-    else activeFilteNPRcategories = activeFilteNPRcategories.filter(x => x !== val);
+    if (cb.checked) activeFilters.categories.push(val);
+    else activeFilters.categories = activeFilters.categories.filter(x => x !== val);
   } else if (type === 'brand') {
-    if (cb.checked) activeFilteNPRbrands.push(val);
-    else activeFilteNPRbrands = activeFilteNPRbrands.filter(x => x !== val);
+    if (cb.checked) activeFilters.brands.push(val);
+    else activeFilters.brands = activeFilters.brands.filter(x => x !== val);
   }
   applyFilters();
 }
@@ -145,17 +145,17 @@ function initShop() {
   const sort = params.get('sort') || '';
 
   if (search) {
-    activeFilteNPRsearch = search;
+    activeFilters.search = search;
     const searchEl = document.getElementById('shopSearch');
     if (searchEl) searchEl.value = search;
   }
   if (category) {
-    activeFilteNPRcategories = [category];
+    activeFilters.categories = [category];
     const cb = document.querySelector(`.filter-cb[data-type="category"][value="${category}"]`);
     if (cb) cb.checked = true;
   }
   if (brand) {
-    activeFilteNPRbrands = [brand];
+    activeFilters.brands = [brand];
     const cb = document.querySelector(`.filter-cb[data-type="brand"][value="${brand}"]`);
     if (cb) cb.checked = true;
   }
@@ -187,7 +187,7 @@ function initShop() {
 
   // Shop search
   document.getElementById('shopSearch')?.addEventListener('input', e => {
-    activeFilteNPRsearch = e.target.value.trim().toLowerCase();
+    activeFilters.search = e.target.value.trim().toLowerCase();
     applyFilters();
   });
 
