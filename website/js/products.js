@@ -1,6 +1,6 @@
-﻿'use strict';
+'use strict';
 
-const IMG_BASE = '../watch_crops_named/';
+const IMG_BASE = 'watch_crops_named/';
 
 const PRODUCTS = [
   { id:1, name:"Miracle Langbo Fancy Chain", brand:"Miracle", category:"ladies", style:"chain", costPrice:575, costPriceMax:675, sellPrice:1150, sellPriceMax:1350, images:["Miracle_Langbo_Fancy_chain_575-675.jpg"], description:"Elegant fancy chain style ladies watch with intricate design. A perfect accessory for any occasion.", featured:false, isNew:true, inStock:true, rating:4.5, reviews:8 },
