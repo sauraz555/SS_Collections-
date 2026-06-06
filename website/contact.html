@@ -71,20 +71,13 @@
       <h2>Talk to Us</h2>
       <p>Have a question about a watch? Need help with your order? We'd love to hear from you. Reach out through any of the channels below.</p>
 
-      <div class="contact-info-item">
-        <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <div>
-          <h4>Our Location</h4>
-          <p>Kathmandu, Nepal</p>
-          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Visit us in store</p>
-        </div>
-      </div>
+      
 
       <div class="contact-info-item">
         <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
         <div>
           <h4>Phone / WhatsApp</h4>
-          <p>+977 98XXXXXXXX</p>
+          <p>+9779841414563</p>
           <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Call or WhatsApp anytime</p>
         </div>
       </div>
@@ -93,7 +86,7 @@
         <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
         <div>
           <h4>Email</h4>
-          <p>info@sscollections.com.np</p>
+          <p>sauraz555@gmail.com</p>
           <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">We reply within 24 hours</p>
         </div>
       </div>
@@ -102,8 +95,8 @@
         <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
         <div>
           <h4>Business Hours</h4>
-          <p>Sunday – Friday: 10am – 6pm</p>
-          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Saturday: Closed</p>
+          <p>Orders can be made 24hrs a day</p>
+          
         </div>
       </div>
 
@@ -138,11 +131,11 @@
         <div class="form-row">
           <div class="form-group">
             <label>Phone Number *</label>
-            <input type="tel" name="phone" placeholder="+977 98XXXXXXXX" required>
+            <input type="tel" name="phone" placeholder="+9779841414563" required>
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" name="email" placeholder="ram@example.com">
+            <input type="email" name="email" placeholder="sauraz555@gmail.com">
           </div>
         </div>
         <div class="form-group">
@@ -162,7 +155,7 @@
           <textarea name="message" placeholder="Write your message here..." rows="5" required></textarea>
         </div>
         <button type="submit" class="submit-btn">
-          <i class="fas fa-paper-plane"></i> Send Message
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </button>
       </form>
     </div>
@@ -242,10 +235,10 @@
       <div class="footer-col">
         <h4>Contact</h4>
         <ul class="footer-contact">
-          <li><i class="fas fa-map-marker-alt"></i><span>Kathmandu, Nepal</span></li>
-          <li><i class="fas fa-phone"></i><span>+977 98XXXXXXXX</span></li>
-          <li><i class="fas fa-envelope"></i><span>info@sscollections.com.np</span></li>
-          <li><i class="fas fa-clock"></i><span>Sun – Fri: 10am – 6pm</span></li>
+          
+          <li><i class="fas fa-phone"></i><span>+9779841414563</span></li>
+          <li><i class="fas fa-envelope"></i><span>sauraz555@gmail.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Orders accepted 24/7</span></li>
         </ul>
       </div>
     </div>
@@ -289,25 +282,25 @@
 <script>
   function submitContact(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
-    setTimeout(() => {
-      e.target.innerHTML = `
-        <div style="text-align:center; padding:32px 0;">
-          <div style="width:64px; height:64px; background:#e8f5e9; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
-            <i class="fas fa-check" style="color:#2ecc71; font-size:1.5rem;"></i>
-          </div>
-          <h3 style="margin-bottom:8px;">Message Sent!</h3>
-          <p style="color:var(--muted); font-size:0.9rem;">Thank you for reaching out. We'll get back to you within 24 houNPR</p>
-        </div>`;
-    }, 1200);
+    const formData = new FormData(e.target);
+    const name = formData.get('firstName') + ' ' + formData.get('lastName');
+    const msg = formData.get('message');
+    const subject = formData.get('subject');
+    
+    let text = `Hi SS Collections, my name is ${name}. I have a question regarding: ${subject}. %0A%0A${msg}`;
+    
+    // Open WhatsApp
+    window.open('https://wa.me/9779841414563?text=' + text, '_blank');
   }
 </script>
 
 <!-- WHATSAPP CTA -->
-<a href="https://wa.me/9779841414563" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
+
+<div class="whatsapp-wrapper">
+  <div class="wa-tooltip">Order ko lagi msg garnu hola</div>
+  <a href="https://wa.me/9779841414563" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
 </body>
 </html>
