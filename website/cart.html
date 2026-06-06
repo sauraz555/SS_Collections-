@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart – SS Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-clock"></i></div>
+        <span class="logo-text">SS <span>Collections</span></span>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?category=ladies">Ladies</a>
+        <a href="shop.html?category=gents">Gents</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-btn search-toggle"><i class="fas fa-search"></i></button>
+        <a href="shop.html" class="header-btn" style="position:relative">
+          <i class="far fa-heart"></i>
+          <span class="wishlist-badge" style="display:none">0</span>
+        </a>
+        <button class="header-btn" onclick="openCart()" style="position:relative">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" style="display:none">0</span>
+        </button>
+        <button class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('open'); this.classList.toggle('active')">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <div class="search-bar-inner">
+      <i class="fas fa-search" style="color:var(--muted)"></i>
+      <input type="text" placeholder="Search watches, brands...">
+      <button><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Shopping Cart</span>
+    </nav>
+    <h1>Shopping Cart</h1>
+  </div>
+</div>
+
+<div class="cart-page">
+  <div class="container">
+    <div class="cart-page-layout" id="cartPageLayout">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-clock"></i></div>
+          <span class="logo-text" style="color:#fff">SS <span>Collections</span></span>
+        </a>
+        <p>Your premier destination for quality watches and accessories in Nepal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li><i class="fas fa-phone"></i><span>+977 98XXXXXXXX</span></li>
+          <li><i class="fas fa-envelope"></i><span>info@sscollections.com.np</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2082 SS Collections. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>Shopping Cart</h3>
+    <button class="close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <span class="amount" id="cartDrawerTotal">NPR 0</span>
+    </div>
+    <a href="cart.html" class="btn btn-outline btn-full">View Cart</a>
+    <a href="checkout.html" class="btn btn-primary btn-full" style="margin-top:8px">Checkout</a>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="modal" id="productModal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-body"></div>
+  </div>
+</div>
+
+<button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function renderCartPage() {
+    const layout = document.getElementById('cartPageLayout');
+    if (!layout) return;
+
+    if (cart.items.length === 0) {
+      layout.innerHTML = `
+        <div class="cart-empty-page" style="grid-column:1/-1">
+          <i class="fas fa-shopping-bag"></i>
+          <h3>Your cart is empty</h3>
+          <p>Looks like you haven't added anything to your cart yet.</p>
+          <a href="shop.html" class="btn btn-primary btn-icon"><i class="fas fa-shopping-bag"></i> Start Shopping</a>
+        </div>`;
+      return;
+    }
+
+    const rows = cart.items.map(item => {
+      const p = PRODUCTS.find(x => x.id === item.id);
+      return `
+        <tr>
+          <td>
+            <div class="cart-table-product">
+              <img src="${IMG_BASE}${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+              <div>
+                <p class="cart-table-product-name">${item.name}</p>
+                <p class="cart-table-product-brand">${p ? p.brand : ''}</p>
+              </div>
+            </div>
+          </td>
+          <td class="cart-table-price">NPR ${item.price.toLocaleString('en-IN')}</td>
+          <td>
+            <div class="qty-control">
+              <button onclick="cart.setQty(${item.id}, ${item.qty - 1}); renderCartPage()"><i class="fas fa-minus"></i></button>
+              <span>${item.qty}</span>
+              <button onclick="cart.setQty(${item.id}, ${item.qty + 1}); renderCartPage()"><i class="fas fa-plus"></i></button>
+            </div>
+          </td>
+          <td class="cart-table-total">NPR ${(item.price * item.qty).toLocaleString('en-IN')}</td>
+          <td class="cart-table-remove">
+            <button onclick="cart.remove(${item.id}); renderCartPage()" title="Remove"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        </tr>`;
+    }).join('');
+
+    const shipping = cart.total() >= 2000 ? 0 : 150;
+    const grandTotal = cart.total() + shipping;
+
+    layout.innerHTML = `
+      <div>
+        <div class="cart-table-wrap">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="cart-actions">
+            <a href="shop.html" class="btn btn-outline btn-icon"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+            <button class="btn btn-outline" onclick="if(confirm('Clear cart?')){ cart.clear(); renderCartPage(); }">
+              <i class="fas fa-trash"></i> Clear Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span>Subtotal (${cart.count()} items)</span>
+            <span>NPR ${cart.total().toLocaleString('en-IN')}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>${shipping === 0 ? '<span style="color:#2ecc71">Free</span>' : 'NPR ' + shipping.toLocaleString('en-IN')}</span>
+          </div>
+          ${shipping > 0 ? `<p style="font-size:0.78rem; color:var(--muted); margin:-4px 0 12px">Free shipping on orders above NPR 2,000</p>` : ''}
+          <div class="coupon-form">
+            <input type="text" placeholder="Coupon code">
+            <button onclick="showToast('Invalid or expired coupon code.', 'error')">Apply</button>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span class="amount">NPR ${grandTotal.toLocaleString('en-IN')}</span>
+          </div>
+          <p class="summary-note"><i class="fas fa-lock" style="color:var(--gold)"></i> Secure checkout — Cash on Delivery available</p>
+          <a href="checkout.html" class="btn btn-primary btn-full btn-icon" style="margin-top:16px">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+          </a>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-top:16px">
+          <p style="font-size:0.82rem; font-weight:600; margin-bottom:12px; color:var(--primary)">We Accept</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <span style="background:var(--bg2); padding:6px 14px; border-radius:6px; font-size:0.78rem; font-weight:600"><i class="fas fa-money-bill-wave" style="color:#2ecc71"></i> Cash on Delivery</span>
+            <span style="background:var(--bg2); padding:6px 14px; border-radius:6px; font-size:0.78rem; font-weight:600"><i class="fas fa-mobile-alt" style="color:var(--gold)"></i> eSewa / Khalti</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCartPage);
+</script>
+</body>
+</html>

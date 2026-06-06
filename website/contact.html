@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact – SS Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-clock"></i></div>
+        <span class="logo-text">SS <span>Collections</span></span>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?category=ladies">Ladies</a>
+        <a href="shop.html?category=gents">Gents</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-btn search-toggle"><i class="fas fa-search"></i></button>
+        <a href="shop.html" class="header-btn" style="position:relative">
+          <i class="far fa-heart"></i>
+          <span class="wishlist-badge" style="display:none">0</span>
+        </a>
+        <button class="header-btn" onclick="openCart()" style="position:relative">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" style="display:none">0</span>
+        </button>
+        <button class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('open'); this.classList.toggle('active')">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <div class="search-bar-inner">
+      <i class="fas fa-search" style="color:var(--muted)"></i>
+      <input type="text" placeholder="Search watches, brands...">
+      <button><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Contact Us</span>
+    </nav>
+    <h1>Get In Touch</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contact-layout">
+
+    <!-- Info Card -->
+    <div class="contact-info-card">
+      <p class="subtitle" style="color:rgba(201,168,76,0.8); font-size:0.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;">We're Here to Help</p>
+      <h2>Talk to Us</h2>
+      <p>Have a question about a watch? Need help with your order? We'd love to hear from you. Reach out through any of the channels below.</p>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <h4>Our Location</h4>
+          <p>Kathmandu, Nepal</p>
+          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Visit us in store</p>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+        <div>
+          <h4>Phone / WhatsApp</h4>
+          <p>+977 98XXXXXXXX</p>
+          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Call or WhatsApp anytime</p>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <h4>Email</h4>
+          <p>info@sscollections.com.np</p>
+          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">We reply within 24 hours</p>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+        <div>
+          <h4>Business Hours</h4>
+          <p>Sunday – Friday: 10am – 6pm</p>
+          <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:2px;">Saturday: Closed</p>
+        </div>
+      </div>
+
+      <div style="margin-top:32px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1);">
+        <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px;">Follow Us</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form-card">
+      <p class="subtitle" style="color:var(--gold); font-size:0.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;">Send a Message</p>
+      <h2>We'd Love to Hear From You</h2>
+      <p>Fill out the form and we'll get back to you as soon as possible.</p>
+
+      <form id="contactForm" onsubmit="submitContact(event)" style="margin-top:28px">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" name="firstName" placeholder="Ram" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" name="lastName" placeholder="Sharma" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" placeholder="+977 98XXXXXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="ram@example.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject *</label>
+          <select name="subject" required>
+            <option value="">Select a subject</option>
+            <option>Product Enquiry</option>
+            <option>Order Status</option>
+            <option>Return / Exchange</option>
+            <option>Wholesale / Bulk Order</option>
+            <option>General Question</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message *</label>
+          <textarea name="message" placeholder="Write your message here..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header">
+      <p class="subtitle">Quick Answers</p>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div style="max-width:760px; margin:0 auto; display:grid; gap:16px;">
+      <details style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer;">
+        <summary style="font-weight:600; font-size:0.95rem; list-style:none; display:flex; align-items:center; justify-content:space-between;">
+          Do you deliver across Nepal? <i class="fas fa-plus" style="color:var(--gold); font-size:0.8rem; flex-shrink:0;"></i>
+        </summary>
+        <p style="margin-top:12px; color:var(--muted); font-size:0.88rem; line-height:1.7;">Yes! We deliver to all major cities and districts across Nepal. Delivery typically takes 2–5 business days depending on your location. Free shipping on orders over NPR 2,000.</p>
+      </details>
+      <details style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer;">
+        <summary style="font-weight:600; font-size:0.95rem; list-style:none; display:flex; align-items:center; justify-content:space-between;">
+          What payment methods do you accept? <i class="fas fa-plus" style="color:var(--gold); font-size:0.8rem; flex-shrink:0;"></i>
+        </summary>
+        <p style="margin-top:12px; color:var(--muted); font-size:0.88rem; line-height:1.7;">We accept Cash on Delivery (COD) for all ordeNPR We also accept eSewa and Khalti digital wallet payments. Bank transfers can be arranged for bulk ordeNPR</p>
+      </details>
+      <details style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer;">
+        <summary style="font-weight:600; font-size:0.95rem; list-style:none; display:flex; align-items:center; justify-content:space-between;">
+          Can I return or exchange a product? <i class="fas fa-plus" style="color:var(--gold); font-size:0.8rem; flex-shrink:0;"></i>
+        </summary>
+        <p style="margin-top:12px; color:var(--muted); font-size:0.88rem; line-height:1.7;">Yes. We accept returns within 7 days of delivery if the product is unused and in original condition. Please contact us with your order number and reason for return.</p>
+      </details>
+      <details style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer;">
+        <summary style="font-weight:600; font-size:0.95rem; list-style:none; display:flex; align-items:center; justify-content:space-between;">
+          Do you offer wholesale or bulk pricing? <i class="fas fa-plus" style="color:var(--gold); font-size:0.8rem; flex-shrink:0;"></i>
+        </summary>
+        <p style="margin-top:12px; color:var(--muted); font-size:0.88rem; line-height:1.7;">Yes! We offer special pricing for bulk and wholesale ordeNPR Please contact us directly via phone or WhatsApp to discuss pricing and availability.</p>
+      </details>
+      <details style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer;">
+        <summary style="font-weight:600; font-size:0.95rem; list-style:none; display:flex; align-items:center; justify-content:space-between;">
+          Are the watches authentic? <i class="fas fa-plus" style="color:var(--gold); font-size:0.8rem; flex-shrink:0;"></i>
+        </summary>
+        <p style="margin-top:12px; color:var(--muted); font-size:0.88rem; line-height:1.7;">All watches sold by SS Collections are genuine products sourced directly from trusted supplieNPR We stand behind the quality of every item we sell.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-clock"></i></div>
+          <span class="logo-text" style="color:#fff">SS <span>Collections</span></span>
+        </a>
+        <p>Your premier destination for quality watches and accessories in Nepal. Timeless style, unbeatable prices.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?category=ladies">Ladies Watches</a></li>
+          <li><a href="shop.html?category=gents">Gents Watches</a></li>
+          <li><a href="shop.html?category=digital">Digital Watches</a></li>
+          <li><a href="shop.html?category=accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li><i class="fas fa-map-marker-alt"></i><span>Kathmandu, Nepal</span></li>
+          <li><i class="fas fa-phone"></i><span>+977 98XXXXXXXX</span></li>
+          <li><i class="fas fa-envelope"></i><span>info@sscollections.com.np</span></li>
+          <li><i class="fas fa-clock"></i><span>Sun – Fri: 10am – 6pm</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2082 SS Collections. All rights reserved.</p>
+      <p>Made with <i class="fas fa-heart" style="color:#e74c3c"></i> in Nepal</p>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>Shopping Cart</h3>
+    <button class="close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <span class="amount" id="cartDrawerTotal">NPR 0</span>
+    </div>
+    <a href="cart.html" class="btn btn-outline btn-full">View Cart</a>
+    <a href="checkout.html" class="btn btn-primary btn-full" style="margin-top:8px">Checkout</a>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="modal" id="productModal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-body"></div>
+  </div>
+</div>
+
+<button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function submitContact(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
+    setTimeout(() => {
+      e.target.innerHTML = `
+        <div style="text-align:center; padding:32px 0;">
+          <div style="width:64px; height:64px; background:#e8f5e9; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+            <i class="fas fa-check" style="color:#2ecc71; font-size:1.5rem;"></i>
+          </div>
+          <h3 style="margin-bottom:8px;">Message Sent!</h3>
+          <p style="color:var(--muted); font-size:0.9rem;">Thank you for reaching out. We'll get back to you within 24 houNPR</p>
+        </div>`;
+    }, 1200);
+  }
+</script>
+</body>
+</html>

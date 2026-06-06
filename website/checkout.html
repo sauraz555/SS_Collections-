@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout – SS Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-clock"></i></div>
+        <span class="logo-text">SS <span>Collections</span></span>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-btn" onclick="openCart()" style="position:relative">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-badge" style="display:none">0</span>
+        </button>
+        <button class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('open'); this.classList.toggle('active')">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="cart.html">Cart</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Checkout</span>
+    </nav>
+    <h1>Checkout</h1>
+  </div>
+</div>
+
+<!-- Steps -->
+<div style="background:#fff; border-bottom:1px solid var(--border); padding:20px 0;">
+  <div class="container">
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="width:28px; height:28px; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:700;">1</span>
+        <span style="font-size:0.86rem; font-weight:600; color:var(--gold);">Shipping Info</span>
+      </div>
+      <i class="fas fa-chevron-right" style="color:var(--border); font-size:0.7rem;"></i>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="width:28px; height:28px; border-radius:50%; background:var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:700;">2</span>
+        <span style="font-size:0.86rem; color:var(--muted);">Payment</span>
+      </div>
+      <i class="fas fa-chevron-right" style="color:var(--border); font-size:0.7rem;"></i>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="width:28px; height:28px; border-radius:50%; background:var(--border); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:700;">3</span>
+        <span style="font-size:0.86rem; color:var(--muted);">Confirmation</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="checkout-page" id="checkoutPage">
+  <div class="container">
+    <div class="checkout-layout" id="checkoutLayout">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-clock"></i></div>
+          <span class="logo-text" style="color:#fff">SS <span>Collections</span></span>
+        </a>
+        <p>Your premier destination for quality watches and accessories in Nepal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Need Help?</h4>
+        <ul class="footer-contact">
+          <li><i class="fas fa-phone"></i><span>+977 98XXXXXXXX</span></li>
+          <li><i class="fas fa-envelope"></i><span>info@sscollections.com.np</span></li>
+          <li><i class="fas fa-clock"></i><span>Sun–Fri: 10am–6pm</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2082 SS Collections. All rights reserved.</p>
+      <p><i class="fas fa-lock" style="color:var(--gold)"></i> Secure Checkout</p>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>Shopping Cart</h3>
+    <button class="close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <span class="amount" id="cartDrawerTotal">NPR 0</span>
+    </div>
+    <a href="cart.html" class="btn btn-outline btn-full">View Cart</a>
+    <a href="checkout.html" class="btn btn-primary btn-full" style="margin-top:8px">Checkout</a>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="modal" id="productModal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-body"></div>
+  </div>
+</div>
+
+<button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function renderCheckout() {
+    const layout = document.getElementById('checkoutLayout');
+    if (!layout) return;
+
+    if (cart.items.length === 0) {
+      layout.innerHTML = `
+        <div style="grid-column:1/-1; text-align:center; padding:80px 24px;">
+          <i class="fas fa-shopping-bag" style="font-size:3rem; color:var(--border); margin-bottom:16px; display:block;"></i>
+          <h3 style="margin-bottom:12px;">Your cart is empty</h3>
+          <p style="color:var(--muted); margin-bottom:24px;">Add some products before checking out.</p>
+          <a href="shop.html" class="btn btn-primary btn-icon"><i class="fas fa-shopping-bag"></i> Go to Shop</a>
+        </div>`;
+      return;
+    }
+
+    const shipping = cart.total() >= 2000 ? 0 : 150;
+    const grandTotal = cart.total() + shipping;
+
+    const orderItems = cart.items.map(item => `
+      <div class="checkout-item">
+        <img src="${IMG_BASE}${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+        <div class="checkout-item-info">
+          <p class="name">${item.name}</p>
+          <p class="price">NPR ${(item.price * item.qty).toLocaleString('en-IN')}</p>
+          <p class="qty">Qty: ${item.qty}</p>
+        </div>
+      </div>`).join('');
+
+    layout.innerHTML = `
+      <!-- Form -->
+      <div>
+        <form id="checkoutForm" onsubmit="placeOrder(event)">
+          <!-- Contact -->
+          <div class="checkout-form-section" style="margin-bottom:20px">
+            <h3><i class="fas fa-user" style="color:var(--gold); margin-right:8px"></i>Contact Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name *</label>
+                <input type="text" name="firstName" placeholder="Ram" required>
+              </div>
+              <div class="form-group">
+                <label>Last Name *</label>
+                <input type="text" name="lastName" placeholder="Sharma" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" name="phone" placeholder="+977 98XXXXXXXX" required>
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="ram@example.com">
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping -->
+          <div class="checkout-form-section" style="margin-bottom:20px">
+            <h3><i class="fas fa-truck" style="color:var(--gold); margin-right:8px"></i>Shipping Address</h3>
+            <div class="form-group">
+              <label>Street Address / Tole *</label>
+              <input type="text" name="address" placeholder="Tole/Street/Ward No." required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>City *</label>
+                <input type="text" name="city" placeholder="Kathmandu" required>
+              </div>
+              <div class="form-group">
+                <label>District *</label>
+                <select name="district" required>
+                  <option value="">Select District</option>
+                  <option>Kathmandu</option>
+                  <option>Lalitpur</option>
+                  <option>Bhaktapur</option>
+                  <option>Pokhara</option>
+                  <option>Chitwan</option>
+                  <option>Butwal</option>
+                  <option>Biratnagar</option>
+                  <option>Birgunj</option>
+                  <option>Dharan</option>
+                  <option>Hetauda</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Order Notes (Optional)</label>
+              <textarea name="notes" placeholder="Any special instructions or notes about your order..."></textarea>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="checkout-form-section">
+            <h3><i class="fas fa-credit-card" style="color:var(--gold); margin-right:8px"></i>Payment Method</h3>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cod" checked>
+              <i class="fas fa-money-bill-wave"></i>
+              <div class="payment-option-info">
+                <strong>Cash on Delivery</strong>
+                <span>Pay when your order arrives at your doorstep</span>
+              </div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="esewa">
+              <i class="fas fa-mobile-alt"></i>
+              <div class="payment-option-info">
+                <strong>eSewa</strong>
+                <span>Pay online via eSewa digital wallet</span>
+              </div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="khalti">
+              <i class="fas fa-wallet"></i>
+              <div class="payment-option-info">
+                <strong>Khalti</strong>
+                <span>Pay online via Khalti digital wallet</span>
+              </div>
+            </label>
+
+            <div style="background:var(--gold-pale); border:1px solid var(--gold-light); border-radius:var(--radius-sm); padding:14px; margin-top:16px; display:flex; gap:10px; align-items:flex-start;">
+              <i class="fas fa-shield-alt" style="color:var(--gold); flex-shrink:0; margin-top:2px;"></i>
+              <p style="font-size:0.82rem; color:var(--muted); line-height:1.6;">Your personal information is secure. We never store payment details and your order information is kept private.</p>
+            </div>
+
+            <button type="submit" class="place-order-btn" style="margin-top:20px">
+              <i class="fas fa-check-circle"></i> Place Order — NPR ${grandTotal.toLocaleString('en-IN')}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="checkout-order-summary">
+          <h3>Order Summary</h3>
+          <div style="border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px;">
+            ${orderItems}
+          </div>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>NPR ${cart.total().toLocaleString('en-IN')}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>${shipping === 0 ? '<span style="color:#2ecc71">Free</span>' : 'NPR ' + shipping}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span class="amount">NPR ${grandTotal.toLocaleString('en-IN')}</span>
+          </div>
+          <div style="margin-top:16px; padding:12px; background:var(--bg2); border-radius:var(--radius-sm); font-size:0.8rem; color:var(--muted); display:flex; gap:8px; align-items:center;">
+            <i class="fas fa-info-circle" style="color:var(--gold);"></i>
+            <span>${shipping > 0 ? 'Add NPR ' + (2000 - cart.total()) + ' more for free shipping' : 'You qualify for free shipping!'}</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function placeOrder(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    // Simple validation
+    if (!data.get('firstName') || !data.get('phone') || !data.get('address') || !data.get('city')) {
+      showToast('Please fill in all required fields.', 'error');
+      return;
+    }
+
+    // Show success
+    const layout = document.getElementById('checkoutLayout');
+    const orderNum = 'SS' + Date.now().toString().slice(-6);
+    cart.clear();
+
+    layout.innerHTML = `
+      <div style="grid-column:1/-1;">
+        <div class="order-success">
+          <div class="order-success-icon"><i class="fas fa-check"></i></div>
+          <h2 style="margin-bottom:8px;">Order Placed Successfully!</h2>
+          <p style="color:var(--muted); margin-bottom:4px;">Thank you for your order, <strong>${data.get('firstName')} ${data.get('lastName')}</strong></p>
+          <p style="color:var(--gold); font-weight:700; font-size:1.1rem; margin-bottom:24px;">Order #${orderNum}</p>
+          <div style="background:var(--bg2); border-radius:var(--radius); padding:24px; max-width:480px; margin:0 auto 32px; text-align:left;">
+            <p style="font-weight:700; margin-bottom:16px; font-family:'Playfair Display',serif;">Order Details</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.86rem;">
+              <div><p style="color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Delivery Address</p><p style="font-weight:600; margin-top:4px;">${data.get('address')}, ${data.get('city')}, ${data.get('district')}</p></div>
+              <div><p style="color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Contact</p><p style="font-weight:600; margin-top:4px;">${data.get('phone')}</p></div>
+              <div><p style="color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Payment</p><p style="font-weight:600; margin-top:4px; text-transform:capitalize;">${data.get('payment') === 'cod' ? 'Cash on Delivery' : data.get('payment')}</p></div>
+              <div><p style="color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Estimated Delivery</p><p style="font-weight:600; margin-top:4px;">2–5 Business Days</p></div>
+            </div>
+          </div>
+          <p style="color:var(--muted); font-size:0.86rem; margin-bottom:28px;">We will contact you on <strong>${data.get('phone')}</strong> to confirm your order. Thank you for shopping with SS Collections!</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="shop.html" class="btn btn-primary btn-icon"><i class="fas fa-shopping-bag"></i> Continue Shopping</a>
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+          </div>
+        </div>
+      </div>`;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCheckout);
+</script>
+</body>
+</html>
