@@ -242,7 +242,7 @@ function createProductCard(p) {
   return `
     <div class="product-card" data-id="${p.id}">
       <div class="card-img-wrap" onclick="openModal(${p.id})">
-        <img src="${imgSrc}" alt="${p.name} - Premium Watch Nepal" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'><i class=\\'fas fa-clock\\'></i></div>'">
+        <img src="${imgSrc}" alt="${p.name} - Premium Watch Nepal"  onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'><i class=\\'fas fa-clock\\'></i></div>'">
         <div class="card-overlay">
           <button class="btn-quickview"><i class="fas fa-eye"></i> Quick View</button>
         </div>

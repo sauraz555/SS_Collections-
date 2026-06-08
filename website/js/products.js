@@ -91,7 +91,7 @@ const CATEGORIES = [
   { id:'ladies',      name:'Ladies Watches', icon:'fa-venus',    image:'Omega_Ladies_086_1000.jpg', desc:'Elegant timepieces for her' },
   { id:'gents',       name:'Gents Watches',  icon:'fa-mars',     image:'Omega_Gents_086_1000.jpg',  desc:'Sophisticated watches for him' },
   { id:'digital',     name:'Digital Watches',icon:'fa-bolt',     image:'Lasika_Digital_325.jpg',     desc:'Smart digital timepieces' },
-  { id:'accessories', name:'Accessories',    icon:'fa-box-open', image:'Coach_Box_Set_600.jpg',      desc:'Boxes, stands & tools' },
+  { id:'accessories', name:'Accessories',    icon:'fa-box-open', image:'Leather_Folding_Box_200.jpg',      desc:'Boxes, stands & tools' },
 ];
 
 function getPriceDisplay(p) {

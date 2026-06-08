@@ -33,7 +33,7 @@ ul { list-style: none; }
   --shadow-md: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 20px 60px 0 rgba(0, 0, 0, 0.7);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg: rgba(24, 24, 27, 0.9);
   --glass-border: rgba(255, 255, 255, 0.05);
 }
 
@@ -697,5 +697,26 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .hero-decor-circle {
     animation: none;
     display: none; /* Hide complex rotating SVGs on mobile */
+  }
+}
+
+/* ADDITIONAL MOBILE TWEAKS */
+@media (max-width: 540px) {
+  .products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .card-img-wrap {
+    height: 160px !important;
+  }
+  .product-card {
+    min-width: 0; /* Prevent flex/grid overflow */
+  }
+  .card-body {
+    padding: 12px !important;
+  }
+  .card-name {
+    font-size: 0.95rem !important;
   }
 }
