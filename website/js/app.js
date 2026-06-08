@@ -41,7 +41,7 @@ class Cart {
 
   _updateBadge() {
     const c = this.count();
-    document.querySelectorAll('.cart-badge').forEach(el => {
+    document.querySelectorAll('.cart-badge, .cart-badge-nav').forEach(el => {
       el.textContent = c;
       el.style.display = c > 0 ? 'flex' : 'none';
     });
